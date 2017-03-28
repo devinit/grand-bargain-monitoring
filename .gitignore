@@ -1,5 +1,32 @@
-# untracked data
+#
+#
+# CUSTOM
+#
+#
+
+#
+# Untracked data
+#
+
+# CSV and data files pulled from a remote source
 data/remote/
+
+#
+# Additions based on general Python ignores
+#
+
+# virtualenv
+pyenv/
+
+#
+#
+# FROM: https://github.com/github/gitignore
+#
+#
+
+#
+# General Python ignores
+#
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -82,7 +109,6 @@ celerybeat-schedule
 .env
 
 # virtualenv
-pyenv/
 venv/
 ENV/
 
