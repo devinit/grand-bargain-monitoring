@@ -86,6 +86,12 @@ def publisherify_data(base_info, summary_stats):
 			for stat in stats:
 				data[registry_id][stat] = row[stat]
 
+	# until real humanitarian data is available, use a RNG
+	# TODO: Use real humanitarian numbers
+	import random
+	for k in data.keys():
+		data[k]['humanitarian'] = str(random.randint(0, 100))
+
 	return data
 
 
