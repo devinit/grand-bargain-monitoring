@@ -15,7 +15,9 @@ def hello():
 def dashboard():
     data = parse_data.load_and_format_data()
 
-    return render_template('dashboard.html', data=data, heading='Grand Bargain Monitoring')
+    title = 'Grand Bargain Monitoring'
+
+    return render_template('dashboard.html', data=data, heading=title, page_title=title)
 
 
 # @app.route("/")
