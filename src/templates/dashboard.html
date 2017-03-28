@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<table>
+	<thead>
+		<tr>
+			<th>Organisation</th>
+			<th>First Published</th>
+			<th>Timeliness</th>
+			<th>Comprehensive</th>
+			<th>Forward Looking</th>
+			<th>Coverage</th>
+			<th>Humanitarian</th>
+			<th>Baseline</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for k in data %}
+		<tr>
+			<td>{{ data[k]['name_en'] }}</td>
+			<td>{{ data[k]['first_published'] }}</td>
+			<td>{{ data[k]['Timeliness'] }}</td>
+			<td>{{ data[k]['Forward looking'] }}</td>
+			<td>{{ data[k]['Comprehensive'] }}</td>
+			<td>{{ data[k]['Coverage'] }}</td>
+			<td>{{ data[k]['humanitarian'] }}</td>
+			<td>{{ data[k]['baseline'] }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

@@ -13,3 +13,11 @@ source pyenv/bin/activate
 pip install -r requirements.txt
 ./src/load_remote_data.py
 ```
+
+Running the App
+===============
+
+```
+python src/app.py
+# navigate to http://127.0.0.1:5000/dashboard
+```
