@@ -17,7 +17,8 @@ def load_csv_file(loc_type, name):
 		name (str): The combined name and filetype of the file to load.
 
 	Returns:
-		A list of dictionaries containing the data read from the file.
+		list of dict: The data read from the file.
+		Keys in each element are the values specified in the heading row of the CSV file.
 
 	Note:
 		The CSV file must contain a header row.
@@ -43,9 +44,7 @@ def publisherify_data(base_info, summary_stats):
 		summary_stats (list of dict): A list of dictionaries containing the summary stats.
 
 	Returns:
-		A dictionary of dictionaries.
-		The keys in the first-level dictionary are publisher registry IDs.
-		Keys at the second level are names of statistics parsed from data file headers.
+		dict of dict: The keys in the first-level dictionary are publisher registry IDs. Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	data = collections.defaultdict(dict)
 
@@ -78,7 +77,7 @@ def load_and_format_data():
 	Loads and formats all data to be queried by publisher.
 
 	Returns:
-		A dictionary of dictionaries. The keys in the first-level dictionary are publisher registry IDs. Keys at the second level are names of statistics parsed from data file headers.
+		dict of dict: The keys in the first-level dictionary are publisher registry IDs. Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	base_info = load_csv_file('static', 'base_info.csv')
 	summary_stats = load_csv_file('remote', 'summary_stats.csv')
