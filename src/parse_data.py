@@ -1,3 +1,4 @@
+import collections
 import csv
 import os
 
@@ -57,6 +58,40 @@ def load_data_file(loc_type, name):
 	return data_str
 
 
-print(load_data_file('static', 'base_info.csv'))
+def publisherify_data(base_info, summary_stats):
+	"""
+	Converts data to be in a format that allows direct querying by publisher.
 
-print(load_csv_file('static', 'base_info.csv'))
+	Params:
+		base_info (array of dict): An array of dictionaries containing the base info.
+		summary_stats (array of dict): An array of dictionaries containing the summary stats.
+
+	Returns:
+		A dictionary of dictionaries. The keys in the first-level dictionary are publisher registry IDs. Keys at the second level are names of statistics parsed from data file headers.
+	"""
+	data = collections.defaultdict(dict)
+
+	for row in base_info:
+		registry_id = row['registry_id']
+		stats = ['baseline', 'first_published', 'name_en']
+		for stat in stats:
+			data[registry_id][stat] = row[stat]
+
+	return data
+
+
+def load_and_format_data():
+	"""
+	Loads and formats all data to be queried by publisher.
+
+	Returns:
+		A dictionary of dictionaries. The keys in the first-level dictionary are publisher registry IDs. Keys at the second level are names of statistics parsed from data file headers.
+	"""
+	base_info = load_csv_file('static', 'base_info.csv')
+	data_by_publisher = publisherify_data(base_info, '')
+
+	return data_by_publisher
+
+pd = load_and_format_data()
+for k, v in pd.items():
+	print(k, v)
