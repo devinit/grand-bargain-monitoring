@@ -16,7 +16,7 @@ def dashboard():
     data = parse_data.load_and_format_data()
     url_for('static', filename='style.css')
 
-    return render_template('dashboard.html', data=data)
+    return render_template('dashboard.html', data=data, heading='Grand Bargain Monitoring')
 
 
 # @app.route("/")
