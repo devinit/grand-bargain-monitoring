@@ -10,6 +10,8 @@
 			<th>Forward Looking</th>
 			<th>Coverage</th>
 			<th>Humanitarian</th>
+			<th>Data Use</th>
+			<th>Total</th>
 			<th>Baseline</th>
 		</tr>
 	</thead>
@@ -23,6 +25,8 @@
 			<td>{{ data[k]['Comprehensive'] if data[k]['Comprehensive'] != '' else '0' }}</td>
 			<td>{{ data[k]['Coverage'] if data[k]['Coverage'] != '' else '0' }}</td>
 			<td>{{ data[k]['humanitarian'] if data[k]['humanitarian'] != '' else '0' }}</td>
+			<td>TBC</td>
+			<td>TBC</td>
 			<td>{{ data[k]['baseline'] if data[k]['baseline'] != '' else '0' }}</td>
 		</tr>
 		{% endfor %}
