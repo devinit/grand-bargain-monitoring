@@ -2,6 +2,7 @@ body {
 	padding: 5%;
 }
 
+/* A rough gradient to visually demonstrate percentages */
 .pc-0 {
 	background-color: #FF0000;
 }
@@ -39,6 +40,7 @@ body {
 	background-color: #00FFFF;
 }
 
+/* Table sort styling */
 .sort:after {
 	display: inline-block;
 	width: 0;
