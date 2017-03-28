@@ -107,8 +107,3 @@ def load_and_format_data():
 	data_by_publisher = publisherify_data(base_info, summary_stats)
 
 	return data_by_publisher
-
-
-pd = load_and_format_data()
-for k, v in pd.items():
-	print(k, v)
