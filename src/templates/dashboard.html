@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<table>
+<table class="small">
 	<thead>
 		<tr>
 			<th>Organisation</th>
@@ -20,11 +20,11 @@
 		<tr>
 			<td>{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</td>
 			<td>{{ data[k]['first_published'] if data[k]['first_published'] != '' else 'Unknown' }}</td>
-			<td>{{ data[k]['Timeliness'] if data[k]['Timeliness'] != '' else '0' }}</td>
-			<td>{{ data[k]['Forward looking'] if data[k]['Forward looking'] != '' else '0' }}</td>
-			<td>{{ data[k]['Comprehensive'] if data[k]['Comprehensive'] != '' else '0' }}</td>
-			<td>{{ data[k]['Coverage'] if data[k]['Coverage'] != '' else '0' }}</td>
-			<td>{{ data[k]['humanitarian'] if data[k]['humanitarian'] != '' else '0' }}</td>
+			<td class="pc-{{ data[k]['Timeliness'] }}">{{ data[k]['Timeliness'] if data[k]['Timeliness'] != '' else '0' }}</td>
+			<td class="pc-{{ data[k]['Forward looking'] }}">{{ data[k]['Forward looking'] if data[k]['Forward looking'] != '' else '0' }}</td>
+			<td class="pc-{{ data[k]['Comprehensive'] }}">{{ data[k]['Comprehensive'] if data[k]['Comprehensive'] != '' else '0' }}</td>
+			<td class="pc-{{ data[k]['Coverage'] }}">{{ data[k]['Coverage'] if data[k]['Coverage'] != '' else '0' }}</td>
+			<td class="pc-{{ data[k]['humanitarian'] }}">{{ data[k]['humanitarian'] if data[k]['humanitarian'] != '' else '0' }}</td>
 			<td>TBC</td>
 			<td>TBC</td>
 			<td>{{ data[k]['baseline'] if data[k]['baseline'] != '' else '0' }}</td>
