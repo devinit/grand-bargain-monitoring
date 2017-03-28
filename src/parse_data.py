@@ -10,14 +10,14 @@ data_path_static = os.path.join(data_path, 'static')
 
 def load_csv_file(loc_type, name):
 	"""
-	Loads CSV data into an array of dictionaries.
+	Loads CSV data into a list of dictionaries.
 
 	Params:
 		loc_type (str): Either 'remote' or 'static'. Static is assumed if an incorrect value is provided.
 		name (str): The combined name and filetype of the file to load.
 
 	Returns:
-		An array of dictionaries containing the data read from the file.
+		A list of dictionaries containing the data read from the file.
 
 	Note:
 		The CSV file must contain a header row.
@@ -39,11 +39,13 @@ def publisherify_data(base_info, summary_stats):
 	Converts data to be in a format that allows direct querying by publisher.
 
 	Params:
-		base_info (array of dict): An array of dictionaries containing the base info.
-		summary_stats (array of dict): An array of dictionaries containing the summary stats.
+		base_info (list of dict): A list of dictionaries containing the base info.
+		summary_stats (list of dict): A list of dictionaries containing the summary stats.
 
 	Returns:
-		A dictionary of dictionaries. The keys in the first-level dictionary are publisher registry IDs. Keys at the second level are names of statistics parsed from data file headers.
+		A dictionary of dictionaries.
+		The keys in the first-level dictionary are publisher registry IDs.
+		Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	data = collections.defaultdict(dict)
 
