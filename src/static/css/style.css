@@ -5,7 +5,6 @@ body {
 .pc-0 {
 	background-color: #FF0000;
 }
-
 .pc-1, .pc-2, .pc-3, .pc-4, .pc-5, .pc-6, .pc-7, .pc-8, .pc-9, .pc-10 {
 	background-color: #FF3300;
 }
@@ -40,21 +39,6 @@ body {
 	background-color: #00FFFF;
 }
 
-
-/*.sort {
-	padding:8px 30px;
-	border-radius: 6px;
-	border:none;
-	display:inline-block;
-	color:#fff;
-	text-decoration: none;
-	background-color: #28a8e0;
-	height:30px;
-}*/
-/*.sort:hover {
-	text-decoration: none;
-	background-color:#1b8aba;
-}*/
 .sort:after {
 	display: inline-block;
 	width: 0;

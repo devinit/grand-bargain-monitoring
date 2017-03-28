@@ -20,12 +20,5 @@ def dashboard():
     return render_template('dashboard.html', data=data, heading=title, page_title=title)
 
 
-# @app.route("/")
-# def dashboard():
-#     url_for('static', filename='style.css')
-
-#     return render_template('base.html')
-
-
 if __name__ == "__main__":
     app.run()
