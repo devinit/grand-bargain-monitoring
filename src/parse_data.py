@@ -44,7 +44,8 @@ def publisherify_data(base_info, summary_stats):
 		summary_stats (list of dict): A list of dictionaries containing the summary stats.
 
 	Returns:
-		dict of dict: The keys in the first-level dictionary are publisher registry IDs. Keys at the second level are names of statistics parsed from data file headers.
+		dict of dict: The keys in the first-level dictionary are publisher registry IDs.
+			Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	data = collections.defaultdict(dict)
 
@@ -77,7 +78,8 @@ def load_and_format_data():
 	Loads and formats all data to be queried by publisher.
 
 	Returns:
-		dict of dict: The keys in the first-level dictionary are publisher registry IDs. Keys at the second level are names of statistics parsed from data file headers.
+		dict of dict: The keys in the first-level dictionary are publisher registry IDs.
+			Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	base_info = load_csv_file('static', 'base_info.csv')
 	summary_stats = load_csv_file('remote', 'summary_stats.csv')
