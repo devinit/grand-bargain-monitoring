@@ -77,6 +77,15 @@ def publisherify_data(base_info, summary_stats):
 		for stat in stats:
 			data[registry_id][stat] = row[stat]
 
+	for row in summary_stats:
+		registry_id = row['Publisher Registry Id']
+
+		# only track data for Grand Bargain signatories
+		if registry_id in data:
+			stats = ['Timeliness', 'Forward looking', 'Comprehensive', 'Coverage']
+			for stat in stats:
+				data[registry_id][stat] = row[stat]
+
 	return data
 
 
@@ -88,9 +97,11 @@ def load_and_format_data():
 		A dictionary of dictionaries. The keys in the first-level dictionary are publisher registry IDs. Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	base_info = load_csv_file('static', 'base_info.csv')
-	data_by_publisher = publisherify_data(base_info, '')
+	summary_stats = load_csv_file('remote', 'summary_stats.csv')
+	data_by_publisher = publisherify_data(base_info, summary_stats)
 
 	return data_by_publisher
+
 
 pd = load_and_format_data()
 for k, v in pd.items():
