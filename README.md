@@ -8,7 +8,8 @@ Installation
 This assumes a typical Python development setup is available (details on such things to be provided at some point in the future).
 
 ```
-virtualenv pyenv
+virtualenv -p python3 pyenv
 source pyenv/bin/activate
 pip install -r requirements.txt
+./src/load-remote-data.py
 ```
