@@ -6,11 +6,6 @@ import parse_data
 app = Flask(__name__)
 
 
-@app.route("/hello")
-def hello():
-    return "Hello World!"
-
-
 @app.route("/dashboard")
 def dashboard():
     data = parse_data.load_and_format_data()
