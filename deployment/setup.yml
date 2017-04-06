@@ -15,6 +15,11 @@
       apt:
         update_cache: yes
 
+    - name: Install git
+      apt:
+        name: git
+        state: present
+
     - name: Install python 3
       apt:
         name: python3

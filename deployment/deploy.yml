@@ -13,3 +13,14 @@
         dest: /home/gbm/grand-bargain-monitoring
         update: yes
         version: dev
+
+    # install requirements
+    - name: install pip requirements
+      pip:
+        requirements: /home/gbm/grand-bargain-monitoring/requirements.txt
+        # executable: pip
+        virtualenv: /home/gbm/grand-bargain-monitoring/pyenv
+        virtualenv_python: python3
+        virtualenv_site_packages: no
+
+    # run the app
