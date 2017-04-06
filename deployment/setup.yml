@@ -1,0 +1,31 @@
+---
+- hosts: gbm-server
+  remote_user: root
+
+  tasks:
+    # user-related actions
+    - name: Create non-root account
+      user:
+        name: gbm
+        comment: "Grand Bargain Monitoring Account"
+        createhome: yes
+
+    # software installation
+    - name: Update apt caches
+      apt:
+        update_cache: yes
+
+    - name: Install python 3
+      apt:
+        name: python3
+        state: present
+
+    - name: Install pip
+      apt:
+        name: python-pip
+        state: present
+
+    - name: Install virtualenv
+      apt:
+        name: virtualenv
+        state: present

@@ -1,0 +1,15 @@
+---
+- hosts: gbm-server
+  remote_user: root
+  become: yes
+  become_method: su
+  become_user: gbm
+
+  tasks:
+    # download the application
+    - name: clone git repository
+      git:
+        repo: https://github.com/devinit/grand-bargain-monitoring.git
+        dest: /home/gbm/grand-bargain-monitoring
+        update: yes
+        version: dev
