@@ -11,6 +11,7 @@ This assumes a typical Python development setup is available (details on such th
 virtualenv -p python3 pyenv
 source pyenv/bin/activate
 pip install -r requirements.txt
+mkdir data/remote
 ./src/load_remote_data.py
 ```
 
