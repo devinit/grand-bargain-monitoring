@@ -76,13 +76,14 @@
 
 	<div role="tabpanel" class="tab-pane" id="coverage-tab">
 		<input class="search" placeholder="Search" />
+		<p><strong>NOTE:</strong> This table contains randomly generated data.</p>
 		<table class="table">
 			<thead>
 				<tr>
 					<th class="sort" data-sort="organisation">Organisation</th>
 					<th class="sort" data-sort="humanitarian-spend-iati">Humanitarian IATI Spend (US &#36;)</th>
 					<th class="sort" data-sort="humanitarian-spend-reference">Humanitarian Reference Spend (US &#36;)</th>
-					<th class="sort" data-sort="spend-ratio">Spend Ratio</th>
+					<th class="sort" data-sort="spend-ratio">Spend Ratio (&#37;)</th>
 					<th class="sort" data-sort="coverage">Coverage</th>
 				</tr>
 			</thead>
@@ -90,10 +91,10 @@
 				{% for k in data %}
 				<tr>
 					<td class="organisation">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</td>
-					<td class="humanitarian-spend-iati">{{ data[k]['humanitarian_spend_iati'] if data[k]['humanitarian_spend_iati'] != '' else 'Unknown' }}</td>
-					<td class="humanitarian-spend-reference">{{ data[k]['humanitarian_spend_reference'] if data[k]['humanitarian_spend_reference'] != '' else '0' }}</td>
-					<td class="spend-ratio">{{ data[k]['spend_ratio'] if data[k]['spend_ratio'] != '' else '0' }}</td>
-					<td class="Coverage">TBC</td>
+					<td class="humanitarian-spend-iati">{{ '%0.1f'| format(data[k]['humanitarian_spend_iati']|float) if data[k]['humanitarian_spend_iati'] != '' else 'Unknown' }}</td>
+					<td class="humanitarian-spend-reference">{{ '%0.1f'| format(data[k]['humanitarian_spend_reference']|float) if data[k]['humanitarian_spend_reference'] != '' else '0' }}</td>
+					<td class="spend-ratio">{{ '%0.1f'| format(data[k]['spend_ratio']|float) if data[k]['spend_ratio'] != '' else '0' }}</td>
+					<td class="coverage-total pc-{{ data[k]['coverage_total'] }}">{{ data[k]['coverage_total'] if data[k]['coverage_total'] else '0' }}</td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -137,7 +138,7 @@ var coverage_options = {
 		'humanitarian-spend-iati',
 		'humanitarian-spend-reference',
 		'spend-ratio',
-		'coverage'
+		'coverage-total'
 	]
 };
 var coverage_list = new List('coverage-tab', coverage_options);
