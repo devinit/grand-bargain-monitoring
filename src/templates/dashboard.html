@@ -1,46 +1,109 @@
 {% extends 'base.html' %}
 {% block content %}
-<div id="statistics">
 
-<input class="search" placeholder="Search" />
+<ul class="nav nav-tabs" role="tablist">
+	<li role="presentation" class="active"><a href="#summary-tab" aria-controls="summary" role="tab" data-toggle="tab">Summary</a></li>
+	<li role="presentation"><a href="#data-use-tab" aria-controls="data-use" role="tab" data-toggle="tab">Data Use</a></li>
+	<li role="presentation"><a href="#coverage-tab" aria-controls="coverage" role="tab" data-toggle="tab">Coverage</a></li>
+</ul>
 
-<table class="table">
-	<thead>
-		<tr>
-			<th class="sort" data-sort="organisation">Organisation</th>
-			<th class="sort" data-sort="first-published">First Published</th>
-			<th class="sort" data-sort="timeliness">Timeliness</th>
-			<th class="sort" data-sort="comprehensive">Comprehensive</th>
-			<th class="sort" data-sort="forward-looking">Forward Looking</th>
-			<th class="sort" data-sort="coverage">Coverage</th>
-			<th class="sort" data-sort="humanitarian">Humanitarian (random data)</th>
-			<th class="sort" data-sort="data-use">Data Use</th>
-			<th class="sort" data-sort="total">Total</th>
-			<th class="sort" data-sort="baseline">Baseline</th>
-		</tr>
-	</thead>
-	<tbody class="list">
-		{% for k in data %}
-		<tr>
-			<td class="organisation">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</td>
-			<td class="first-published">{{ data[k]['first_published'] if data[k]['first_published'] != '' else 'Unknown' }}</td>
-			<td class="timeliness pc-{{ data[k]['Timeliness'] }}">{{ data[k]['Timeliness'] if data[k]['Timeliness'] != '' else '0' }}</td>
-			<td class="comprehensive pc-{{ data[k]['Forward looking'] }}">{{ data[k]['Forward looking'] if data[k]['Forward looking'] != '' else '0' }}</td>
-			<td class="forward-looking pc-{{ data[k]['Comprehensive'] }}">{{ data[k]['Comprehensive'] if data[k]['Comprehensive'] != '' else '0' }}</td>
-			<td class="coverage pc-{{ data[k]['Coverage'] }}">{{ data[k]['Coverage'] if data[k]['Coverage'] != '' else '0' }}</td>
-			<td class="humanitarian pc-{{ data[k]['humanitarian'] }}">{{ data[k]['humanitarian'] if data[k]['humanitarian'] != '' else '0' }}</td>
-			<td class="data-use">TBC</td>
-			<td class="total">TBC</td>
-			<td class="baseline">{{ data[k]['baseline'] if data[k]['baseline'] != '' else '0' }}</td>
-		</tr>
-		{% endfor %}
-	</tbody>
-</table>
+<div class="tab-content">
+
+	<div role="tabpanel" class="tab-pane active" id="summary-tab">
+		<input class="search" placeholder="Search" />
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="sort" data-sort="organisation">Organisation</th>
+					<th class="sort" data-sort="first-published">First Published</th>
+					<th class="sort" data-sort="timeliness">Timeliness</th>
+					<th class="sort" data-sort="comprehensive">Comprehensive</th>
+					<th class="sort" data-sort="forward-looking">Forward Looking</th>
+					<th class="sort" data-sort="coverage">Coverage</th>
+					<th class="sort" data-sort="humanitarian">Humanitarian (random data)</th>
+					<th class="sort" data-sort="data-use">Data Use</th>
+					<th class="sort" data-sort="total">Total</th>
+					<th class="sort" data-sort="baseline">Baseline</th>
+				</tr>
+			</thead>
+			<tbody class="list">
+				{% for k in data %}
+				<tr>
+					<td class="organisation">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</td>
+					<td class="first-published">{{ data[k]['first_published'] if data[k]['first_published'] != '' else 'Unknown' }}</td>
+					<td class="timeliness pc-{{ data[k]['Timeliness'] }}">{{ data[k]['Timeliness'] if data[k]['Timeliness'] != '' else '0' }}</td>
+					<td class="comprehensive pc-{{ data[k]['Forward looking'] }}">{{ data[k]['Forward looking'] if data[k]['Forward looking'] != '' else '0' }}</td>
+					<td class="forward-looking pc-{{ data[k]['Comprehensive'] }}">{{ data[k]['Comprehensive'] if data[k]['Comprehensive'] != '' else '0' }}</td>
+					<td class="coverage pc-{{ data[k]['Coverage'] }}">{{ data[k]['Coverage'] if data[k]['Coverage'] != '' else '0' }}</td>
+					<td class="humanitarian pc-{{ data[k]['humanitarian'] }}">{{ data[k]['humanitarian'] if data[k]['humanitarian'] != '' else '0' }}</td>
+					<td class="data-use">TBC</td>
+					<td class="total">TBC</td>
+					<td class="baseline">{{ data[k]['baseline'] if data[k]['baseline'] != '' else '0' }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
+	<div role="tabpanel" class="tab-pane" id="data-use-tab">
+		<input class="search" placeholder="Search" />
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="sort" data-sort="organisation">Organisation</th>
+					<th class="sort" data-sort="fts-import">FTS Import</th>
+					<th class="sort" data-sort="data-use-self">Statement of use of own published data</th>
+					<th class="sort" data-sort="data-use-other">Statement of use of published data of others</th>
+					<th class="sort" data-sort="total">Total</th>
+				</tr>
+			</thead>
+			<tbody class="list">
+				{% for k in data %}
+				<tr>
+					<td class="organisation">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</td>
+					<td class="fts-import">{{ data[k]['fts_import'] if data[k]['fts_import'] != '' else 'Unknown' }}</td>
+					<td class="data-use-self">{{ data[k]['data_use_self'] if data[k]['data_use_self'] != '' else '0' }}</td>
+					<td class="data-use-other">{{ data[k]['data_use_other'] if data[k]['data_use_other'] != '' else '0' }}</td>
+					<td class="total">TBC</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
+	<div role="tabpanel" class="tab-pane" id="coverage-tab">
+		<input class="search" placeholder="Search" />
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="sort" data-sort="organisation">Organisation</th>
+					<th class="sort" data-sort="humanitarian-spend-iati">Humanitarian IATI Spend (US &#36;)</th>
+					<th class="sort" data-sort="humanitarian-spend-reference">Humanitarian Reference Spend (US &#36;)</th>
+					<th class="sort" data-sort="spend-ratio">Spend Ratio</th>
+					<th class="sort" data-sort="coverage">Coverage</th>
+				</tr>
+			</thead>
+			<tbody class="list">
+				{% for k in data %}
+				<tr>
+					<td class="organisation">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</td>
+					<td class="humanitarian-spend-iati">{{ data[k]['humanitarian_spend_iati'] if data[k]['humanitarian_spend_iati'] != '' else 'Unknown' }}</td>
+					<td class="humanitarian-spend-reference">{{ data[k]['humanitarian_spend_reference'] if data[k]['humanitarian_spend_reference'] != '' else '0' }}</td>
+					<td class="spend-ratio">{{ data[k]['spend_ratio'] if data[k]['spend_ratio'] != '' else '0' }}</td>
+					<td class="Coverage">TBC</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
 </div>
 
 <script src="static/js/list.min.js"></script>
 <script type="text/javascript">
-var options = {
+var summary_options = {
 	valueNames: [
 		'organisation',
 		'first-published',
@@ -54,7 +117,28 @@ var options = {
 		'baseline'
 	]
 };
+var summary_list = new List('summary-tab', summary_options);
 
-var userList = new List('statistics', options);
+var data_use_options = {
+	valueNames: [
+		'organisation',
+		'fts-import',
+		'data-use-self',
+		'data-use-other',
+		'total'
+	]
+};
+var data_use_list = new List('data-use-tab', data_use_options);
+
+var coverage_options = {
+	valueNames: [
+		'organisation',
+		'humanitarian-spend-iati',
+		'humanitarian-spend-reference',
+		'spend-ratio',
+		'coverage'
+	]
+};
+var coverage_list = new List('coverage-tab', coverage_options);
 </script>
 {% endblock %}
