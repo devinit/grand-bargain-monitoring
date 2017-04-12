@@ -29,7 +29,7 @@ def load_csv_file(loc_type, name):
 	path = data_path_remote if (loc_type == 'remote') else data_path_static
 
 	# TODO: Properly deal with files that don't exist
-	with open(os.path.join(path, name), 'r') as f:
+	with open(os.path.join(path, name), 'r', encoding='utf-8') as f:
 		reader = csv.DictReader(f)
 
 		return list(reader)
