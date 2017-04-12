@@ -29,7 +29,7 @@ def load_csv_file(loc_type, name):
 	path = data_path_remote if (loc_type == 'remote') else data_path_static
 
 	# TODO: Properly deal with files that don't exist
-	with open(os.path.join(path, name), 'r') as f:
+	with open(os.path.join(path, name), 'r', encoding='utf-8') as f:
 		reader = csv.DictReader(f)
 
 		return list(reader)
@@ -64,11 +64,49 @@ def publisherify_data(base_info, summary_stats):
 			for stat in stats:
 				data[registry_id][stat] = row[stat]
 
-	# until real humanitarian data is available, use a RNG
-	# TODO: Use real humanitarian numbers
+	# generate fake data for values we do not yet have
 	import random
+	import math
 	for k in data.keys():
+		# until real humanitarian data is available, use a RNG
+		# TODO: Use real humanitarian numbers
 		data[k]['humanitarian'] = str(random.randint(0, 100))
+
+		# until real Data Use data available, use random values
+		data[k]['fts_import'] = bool(random.getrandbits(1))
+		data_use_statements = ['', '', '', '', '', 'I use data', 'I do not use data', 'I use lots of data', 'A statement not about data']
+		data[k]['data_use_self'] = data_use_statements[random.randint(0, len(data_use_statements)-1)]
+		data[k]['data_use_other'] = data_use_statements[random.randint(0, len(data_use_statements)-1)]
+
+		# until real coverage data available, use a RNG
+		data[k]['humanitarian_spend_reference'] = random.random() * 200
+		data[k]['humanitarian_spend_iati'] = random.random() * random.randint(0, math.floor(data[k]['humanitarian_spend_reference'] * 3))
+		# ensure some have no reference spend
+		if random.randint(0, 100) < 20:
+			data[k]['humanitarian_spend_reference'] = 0
+			data[k]['spend_ratio'] = 0
+		else:
+			data[k]['spend_ratio'] = (data[k]['humanitarian_spend_iati'] / data[k]['humanitarian_spend_reference']) * 100
+
+	# calculate totals
+	for k in data.keys():
+		# data use totals
+		data[k]['data_use_total'] = 0
+		data[k]['data_use_total'] = data[k]['data_use_total'] + 50 if data[k]['fts_import'] else data[k]['data_use_total']
+		data[k]['data_use_total'] = data[k]['data_use_total'] + 25 if len(data[k]['data_use_self']) > 0 else data[k]['data_use_total']
+		data[k]['data_use_total'] = data[k]['data_use_total'] + 25 if len(data[k]['data_use_other']) > 0 else data[k]['data_use_total']
+
+		# coverage totals
+		if data[k]['spend_ratio'] == 0:
+			data[k]['humanitarian_coverage_total'] = 20
+		elif data[k]['spend_ratio'] < 40:
+			data[k]['humanitarian_coverage_total'] = 40
+		elif data[k]['spend_ratio'] < 60:
+			data[k]['humanitarian_coverage_total'] = 60
+		elif data[k]['spend_ratio'] < 80:
+			data[k]['humanitarian_coverage_total'] = 80
+		else:
+			data[k]['humanitarian_coverage_total'] = 100
 
 	return data
 
