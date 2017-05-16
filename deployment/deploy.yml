@@ -23,4 +23,12 @@
         virtualenv_python: python3
         virtualenv_site_packages: no
 
+    # copy apache config file to correct location
+
+    # create remote data directory
+
+    # download remote data
+
+    # set up cron job to update remote data on regular basis
+
     # run the app
