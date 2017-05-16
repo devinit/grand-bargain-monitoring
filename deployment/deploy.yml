@@ -29,8 +29,13 @@
         virtualenv_site_packages: no
 
     # copy apache config file to correct location
-
-    # create remote data directory
+    - name: copy apache2 config file
+      copy:
+        src: /var/www/grand-bargain-monitoring/deployment/apache2.conf
+        dest: /etc/apache2/sites-available/000-default.conf
+        owner: root
+        group: root
+        mode: 0644
 
     # download remote data
 
