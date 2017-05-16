@@ -70,7 +70,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 
 		# only track data for Grand Bargain signatories
 		if registry_id in data:
-			stats = ['Publisher Type', 'Number of activities', 'Publishing humanitarian?', 'Using humanitarian attribute?', 'Appeal or emergency details', 'Clusters', 'Humanitarian Score']
+			stats = ['Publisher Type', 'Number of Activities', 'Publishing Humanitarian', 'Using Humanitarian Attribute', 'Appeal or Emergency Details', 'Clusters', 'Humanitarian Score']
 			for stat in stats:
 				data[registry_id][stat] = row[stat]
 			# set the value for the summary table
