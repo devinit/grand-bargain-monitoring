@@ -35,13 +35,14 @@ def load_csv_file(loc_type, name):
 		return list(reader)
 
 
-def publisherify_data(base_info, summary_stats):
+def publisherify_data(base_info, summary_stats, humanitarian_stats):
 	"""
 	Converts data to be in a format that allows direct querying by publisher.
 
 	Params:
 		base_info (list of dict): A list of dictionaries containing the base info.
 		summary_stats (list of dict): A list of dictionaries containing the summary stats.
+		humanitarian_stats (list of dict): A list of dictionaries containing the humanitarian stats.
 
 	Returns:
 		dict of dict: The keys in the first-level dictionary are publisher registry IDs.
@@ -63,6 +64,16 @@ def publisherify_data(base_info, summary_stats):
 			stats = ['Timeliness', 'Forward looking', 'Comprehensive', 'Coverage']
 			for stat in stats:
 				data[registry_id][stat] = row[stat]
+
+	for row in humanitarian_stats:
+		registry_id = row['Publisher Registry Id']
+
+		# only track data for Grand Bargain signatories
+		if registry_id in data:
+			stats = ['Publisher Type', 'Number of activities', 'Publishing humanitarian?', 'Using humanitarian attribute?', 'Appeal or emergency details', 'Clusters', 'Humanitarian Score']
+			for stat in stats:
+				data[registry_id][stat] = row[stat]
+
 
 	# generate fake data for values we do not yet have
 	import random
@@ -121,6 +132,7 @@ def load_and_format_data():
 	"""
 	base_info = load_csv_file('static', 'base_info.csv')
 	summary_stats = load_csv_file('remote', 'summary_stats.csv')
-	data_by_publisher = publisherify_data(base_info, summary_stats)
+	humanitarian_stats = load_csv_file('remote', 'humanitarian.csv')
+	data_by_publisher = publisherify_data(base_info, summary_stats, humanitarian_stats)
 
 	return data_by_publisher
