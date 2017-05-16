@@ -73,12 +73,6 @@ def publisherify_data(base_info, summary_stats):
 		# TODO: Use real humanitarian numbers
 		data[k]['humanitarian'] = str(random.randint(0, 100))
 
-		# until real Data Use data available, use random values
-		data[k]['fts_import'] = bool(random.getrandbits(1))
-		data_use_statements = ['', '', '', '', '', 'I use data', 'I do not use data', 'I use lots of data', 'A statement not about data']
-		data[k]['data_use_self'] = data_use_statements[random.randint(0, len(data_use_statements)-1)]
-		data[k]['data_use_other'] = data_use_statements[random.randint(0, len(data_use_statements)-1)]
-
 	# deal with coverage values
 	for k in data.keys():
 		# until real baseline data is available, use a RNG
@@ -92,12 +86,6 @@ def publisherify_data(base_info, summary_stats):
 
 	# calculate totals
 	for k in data.keys():
-		# data use totals
-		data[k]['data_use_total'] = 0
-		data[k]['data_use_total'] = data[k]['data_use_total'] + 50 if data[k]['fts_import'] else data[k]['data_use_total']
-		data[k]['data_use_total'] = data[k]['data_use_total'] + 25 if len(data[k]['data_use_self']) > 0 else data[k]['data_use_total']
-		data[k]['data_use_total'] = data[k]['data_use_total'] + 25 if len(data[k]['data_use_other']) > 0 else data[k]['data_use_total']
-
 		# coverage totals
 		if data[k]['spend_ratio'] == 0:
 			data[k]['humanitarian_coverage_total'] = 0
