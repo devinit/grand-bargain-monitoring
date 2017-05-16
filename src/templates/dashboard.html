@@ -30,7 +30,7 @@
 			<tbody class="list">
 				{% for k in data %}
 				<tr>
-					<td class="organisation">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</td>
+					<td class="organisation"><a href="https://iatiregistry.org/publisher/about/{{ k }}">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</a></td>
 					<td class="first-published">{{ data[k]['first_published'] if data[k]['first_published'] != '' else 'Unknown' }}</td>
 					<td class="timeliness pc-{{ data[k]['Timeliness'] }}">{{ data[k]['Timeliness'] if data[k]['Timeliness'] != '' else '0' }}</td>
 					<td class="comprehensive pc-{{ data[k]['Forward looking'] }}">{{ data[k]['Forward looking'] if data[k]['Forward looking'] != '' else '0' }}</td>
