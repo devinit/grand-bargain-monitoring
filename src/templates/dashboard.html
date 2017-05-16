@@ -3,15 +3,12 @@
 
 <ul class="nav nav-tabs" role="tablist">
 	<li role="presentation" class="active"><a href="#summary-tab" aria-controls="summary" role="tab" data-toggle="tab">Summary</a></li>
-	<li role="presentation"><a href="#data-use-tab" aria-controls="data-use" role="tab" data-toggle="tab">Data Use</a></li>
-	<li role="presentation"><a href="#coverage-tab" aria-controls="coverage" role="tab" data-toggle="tab">Coverage</a></li>
 </ul>
 
 <div class="tab-content">
 
 	<div role="tabpanel" class="tab-pane active" id="summary-tab">
 		<input class="search" placeholder="Search" />
-		<p><strong>NOTE:</strong> Columns with asterisks in the headings contain randomly generated data.</p>
 		<table class="table">
 			<thead>
 				<tr>
@@ -20,18 +17,18 @@
 					<th class="sort" data-sort="timeliness">Timeliness</th>
 					<th class="sort" data-sort="comprehensive">Comprehensive</th>
 					<th class="sort" data-sort="forward-looking">Forward Looking</th>
-					<th class="sort" data-sort="coverage">Coverage*</th>
+					<th class="sort" data-sort="coverage">Coverage</th>
 					<th class="sort" data-sort="humanitarian">Humanitarian*</th>
 					<th class="sort" data-sort="data-use">Data Use*</th>
-					<th class="sort" data-sort="total">Total*</th>
+					<th class="sort" data-sort="total">Total</th>
 					<th class="sort" data-sort="progress">Progress*</th>
-					<th class="sort" data-sort="baseline">Baseline*</th>
+					<th class="sort" data-sort="baseline">Baseline</th>
 				</tr>
 			</thead>
 			<tbody class="list">
 				{% for k in data %}
 				<tr>
-					<td class="organisation">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</td>
+					<td class="organisation"><a href="https://iatiregistry.org/publisher/about/{{ k }}">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</a></td>
 					<td class="first-published">{{ data[k]['first_published'] if data[k]['first_published'] != '' else 'Unknown' }}</td>
 					<td class="timeliness pc-{{ data[k]['Timeliness'] }}">{{ data[k]['Timeliness'] if data[k]['Timeliness'] != '' else '0' }}</td>
 					<td class="comprehensive pc-{{ data[k]['Forward looking'] }}">{{ data[k]['Forward looking'] if data[k]['Forward looking'] != '' else '0' }}</td>
@@ -42,62 +39,6 @@
 					<td class="summary-total">{{ data[k]['summary_total'] if data[k]['summary_total'] != '' else '0' }}</td>
 					<td class="{{ 'positive-progress' if data[k]['progress'] > 0 }}">{{ data[k]['progress'] if data[k]['progress'] != '' else '0' }}</td>
 					<td class="baseline">{{ data[k]['baseline'] if data[k]['baseline'] != '' else '0' }}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-
-
-	<div role="tabpanel" class="tab-pane" id="data-use-tab">
-		<input class="search" placeholder="Search" />
-		<p><strong>NOTE:</strong> This table contains randomly generated data.</p>
-		<table class="table">
-			<thead>
-				<tr>
-					<th class="sort" data-sort="organisation">Organisation</th>
-					<th class="sort" data-sort="fts-import">FTS Import</th>
-					<th class="sort" data-sort="data-use-self">Statement of use of own published data</th>
-					<th class="sort" data-sort="data-use-other">Statement of use of published data of others</th>
-					<th class="sort" data-sort="total">Total</th>
-				</tr>
-			</thead>
-			<tbody class="list">
-				{% for k in data %}
-				<tr>
-					<td class="organisation">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</td>
-					<td class="fts-import">{{ 'Yes' if data[k]['fts_import'] == True else 'No' }}</td>
-					<td class="data-use-self">{{ data[k]['data_use_self'] }}</td>
-					<td class="data-use-other">{{ data[k]['data_use_other'] }}</td>
-					<td class="data-use-total pc-{{ data[k]['data_use_total'] }}">{{ data[k]['data_use_total'] if data[k]['data_use_total'] else '0' }}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
-
-
-	<div role="tabpanel" class="tab-pane" id="coverage-tab">
-		<input class="search" placeholder="Search" />
-		<p><strong>NOTE:</strong> This table contains randomly generated data.</p>
-		<table class="table">
-			<thead>
-				<tr>
-					<th class="sort" data-sort="organisation">Organisation</th>
-					<th class="sort" data-sort="humanitarian-spend-iati">Humanitarian IATI Spend (US &#36;)</th>
-					<th class="sort" data-sort="humanitarian-spend-reference">Humanitarian Reference Spend (US &#36;)</th>
-					<th class="sort" data-sort="spend-ratio">Spend Ratio (&#37;)</th>
-					<th class="sort" data-sort="coverage">Coverage</th>
-				</tr>
-			</thead>
-			<tbody class="list">
-				{% for k in data %}
-				<tr>
-					<td class="organisation">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</td>
-					<td class="humanitarian-spend-iati">{{ '%0.1f'| format(data[k]['humanitarian_spend_iati']|float) if data[k]['humanitarian_spend_iati'] != '' else 'Unknown' }}</td>
-					<td class="humanitarian-spend-reference">{{ '%0.1f'| format(data[k]['humanitarian_spend_reference']|float) if data[k]['humanitarian_spend_reference'] != '' else '0' }}</td>
-					<td class="spend-ratio">{{ '%0.1f'| format(data[k]['spend_ratio']|float) if data[k]['spend_ratio'] != '' else '0' }}</td>
-					<td class="humanitarian-coverage-total pc-{{ data[k]['humanitarian_coverage_total'] }}">{{ data[k]['humanitarian_coverage_total'] if data[k]['humanitarian_coverage_total'] else '0' }}</td>
 				</tr>
 				{% endfor %}
 			</tbody>

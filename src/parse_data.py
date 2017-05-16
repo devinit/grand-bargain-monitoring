@@ -79,19 +79,16 @@ def publisherify_data(base_info, summary_stats):
 		data[k]['data_use_self'] = data_use_statements[random.randint(0, len(data_use_statements)-1)]
 		data[k]['data_use_other'] = data_use_statements[random.randint(0, len(data_use_statements)-1)]
 
-		# until real coverage data available, use a RNG
-		data[k]['humanitarian_spend_reference'] = random.random() * 200
-		data[k]['humanitarian_spend_iati'] = random.random() * random.randint(0, math.floor(data[k]['humanitarian_spend_reference'] * 3))
-		# ensure some have no reference spend
-		if random.randint(0, 100) < 20:
-			data[k]['humanitarian_spend_reference'] = 0
-			data[k]['spend_ratio'] = 0
-		else:
-			data[k]['spend_ratio'] = (data[k]['humanitarian_spend_iati'] / data[k]['humanitarian_spend_reference']) * 10
-
+	# deal with coverage values
+	for k in data.keys():
 		# until real baseline data is available, use a RNG
 		# TODO: Use real baseline numbers
 		data[k]['baseline'] = str(random.randint(0, 100))
+
+    # set various coverage values to zero
+		data[k]['humanitarian_spend_reference'] = 0
+		data[k]['humanitarian_spend_iati'] = 0
+		data[k]['spend_ratio'] = 0
 
 	# calculate totals
 	for k in data.keys():
@@ -103,7 +100,7 @@ def publisherify_data(base_info, summary_stats):
 
 		# coverage totals
 		if data[k]['spend_ratio'] == 0:
-			data[k]['humanitarian_coverage_total'] = 20
+			data[k]['humanitarian_coverage_total'] = 0
 		elif data[k]['spend_ratio'] < 40:
 			data[k]['humanitarian_coverage_total'] = 40
 		elif data[k]['spend_ratio'] < 60:
