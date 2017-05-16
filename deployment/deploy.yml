@@ -14,6 +14,12 @@
         update: yes
         version: dev
 
+    # create directory to store remote data in
+    - name: create remote data directory
+      file:
+        path: /var/www/grand-bargain-monitoring/data/remote
+        state: directory
+
     # install requirements
     - name: install pip requirements
       pip:
