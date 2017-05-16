@@ -48,6 +48,7 @@ def publisherify_data(base_info, summary_stats):
 			Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	data = collections.defaultdict(dict)
+	all_values = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio']
 
 	for row in base_info:
 		registry_id = row['registry_id']
@@ -80,7 +81,11 @@ def publisherify_data(base_info, summary_stats):
 
 	# deal with coverage values
 	for k in data.keys():
-		# until real coverage data available, use a RNG
+		# until real baseline data is available, use a RNG
+		# TODO: Use real baseline numbers
+		data[k]['baseline'] = str(random.randint(0, 100))
+
+    # set various coverage values to zero
 		data[k]['humanitarian_spend_reference'] = 0
 		data[k]['humanitarian_spend_iati'] = 0
 		data[k]['spend_ratio'] = 0
@@ -104,6 +109,20 @@ def publisherify_data(base_info, summary_stats):
 			data[k]['humanitarian_coverage_total'] = 80
 		else:
 			data[k]['humanitarian_coverage_total'] = 100
+
+	# fill in blanks
+	for k in data.keys():
+		for k2 in all_values:
+			if k2 not in data[k].keys() or data[k][k2] == '':
+				data[k][k2] = 0
+
+	# calculate summary
+	for k in data.keys():
+		high_total= int(data[k]['Timeliness']) + int(data[k]['Forward looking']) + int(data[k]['Comprehensive']) + int(data[k]['humanitarian_coverage_total'])
+		data[k]['summary_total'] = round(high_total / 4)
+
+		# progress
+		data[k]['progress'] = data[k]['summary_total'] - int(data[k]['baseline'])
 
 	return data
 
