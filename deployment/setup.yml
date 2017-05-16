@@ -34,3 +34,8 @@
       apt:
         name: virtualenv
         state: present
+
+    - name: Install apache
+      apt:
+        name: apache2
+        state: present
