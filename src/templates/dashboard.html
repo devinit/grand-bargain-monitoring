@@ -46,33 +46,6 @@
 		</table>
 	</div>
 
-
-	<div role="tabpanel" class="tab-pane" id="data-use-tab">
-		<input class="search" placeholder="Search" />
-		<p><strong>NOTE:</strong> This table contains randomly generated data.</p>
-		<table class="table">
-			<thead>
-				<tr>
-					<th class="sort" data-sort="organisation">Organisation</th>
-					<th class="sort" data-sort="fts-import">FTS Import</th>
-					<th class="sort" data-sort="data-use-self">Statement of use of own published data</th>
-					<th class="sort" data-sort="data-use-other">Statement of use of published data of others</th>
-					<th class="sort" data-sort="total">Total</th>
-				</tr>
-			</thead>
-			<tbody class="list">
-				{% for k in data %}
-				<tr>
-					<td class="organisation">{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}</td>
-					<td class="fts-import">{{ 'Yes' if data[k]['fts_import'] == True else 'No' }}</td>
-					<td class="data-use-self">{{ data[k]['data_use_self'] }}</td>
-					<td class="data-use-other">{{ data[k]['data_use_other'] }}</td>
-					<td class="data-use-total pc-{{ data[k]['data_use_total'] }}">{{ data[k]['data_use_total'] if data[k]['data_use_total'] else '0' }}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
 </div>
 
 <script src="static/js/list.min.js"></script>
