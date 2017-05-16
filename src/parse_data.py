@@ -73,16 +73,14 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 			stats = ['Publisher Type', 'Number of activities', 'Publishing humanitarian?', 'Using humanitarian attribute?', 'Appeal or emergency details', 'Clusters', 'Humanitarian Score']
 			for stat in stats:
 				data[registry_id][stat] = row[stat]
+			# set the value for the summary table
+			data[registry_id]['humanitarian'] = data[registry_id]['Humanitarian Score']
 
 
 	# generate fake data for values we do not yet have
 	import random
 	import math
 	for k in data.keys():
-		# until real humanitarian data is available, use a RNG
-		# TODO: Use real humanitarian numbers
-		data[k]['humanitarian'] = str(random.randint(0, 100))
-
 		# until real Data Use data available, use random values
 		data[k]['fts_import'] = bool(random.getrandbits(1))
 		data_use_statements = ['', '', '', '', '', 'I use data', 'I do not use data', 'I use lots of data', 'A statement not about data']
