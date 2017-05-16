@@ -10,7 +10,6 @@
 <div class="tab-content">
 
 	<div role="tabpanel" class="tab-pane active" id="summary-tab">
-		<input class="search" placeholder="Search" />
 		<p><strong>NOTE:</strong> Columns with asterisks in the headings contain randomly generated data.</p>
 		<table class="table">
 			<thead>
@@ -48,7 +47,6 @@
 
 
 	<div role="tabpanel" class="tab-pane" id="data-use-tab">
-		<input class="search" placeholder="Search" />
 		<p><strong>NOTE:</strong> This table contains randomly generated data.</p>
 		<table class="table">
 			<thead>
@@ -76,7 +74,6 @@
 
 
 	<div role="tabpanel" class="tab-pane" id="coverage-tab">
-		<input class="search" placeholder="Search" />
 		<p><strong>NOTE:</strong> This table contains randomly generated data.</p>
 		<table class="table">
 			<thead>
@@ -104,44 +101,14 @@
 
 </div>
 
-<script src="static/js/list.min.js"></script>
+<script src="static/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
-var summary_options = {
-	valueNames: [
-		'organisation',
-		'first-published',
-		'timeliness',
-		'comprehensive',
-		'forward-looking',
-		'coverage',
-		'humanitarian',
-		'data-use',
-		'summary-total',
-		'baseline'
-	]
-};
-var summary_list = new List('summary-tab', summary_options);
-
-var data_use_options = {
-	valueNames: [
-		'organisation',
-		'fts-import',
-		'data-use-self',
-		'data-use-other',
-		'data-use-total'
-	]
-};
-var data_use_list = new List('data-use-tab', data_use_options);
-
-var coverage_options = {
-	valueNames: [
-		'organisation',
-		'humanitarian-spend-iati',
-		'humanitarian-spend-reference',
-		'spend-ratio',
-		'humanitarian-coverage-total'
-	]
-};
-var coverage_list = new List('coverage-tab', coverage_options);
+$(document).ready(function(){
+	$('.table').DataTable({
+		"order": [[ 0, "asc" ]],
+		"paging": false,
+		"fixedHeader": true
+	});
+});
 </script>
 {% endblock %}
