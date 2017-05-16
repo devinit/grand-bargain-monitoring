@@ -46,6 +46,10 @@ body {
 	background-color: #00FF00;
 }
 
+.positive-progress {
+	background-color: #0F0;
+}
+
 /* Table sort styling */
 .sort:after {
 	display: inline-block;
