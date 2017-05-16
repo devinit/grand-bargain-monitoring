@@ -10,16 +10,15 @@
     - name: clone git repository
       git:
         repo: https://github.com/devinit/grand-bargain-monitoring.git
-        dest: /home/gbm/grand-bargain-monitoring
+        dest: /var/www/grand-bargain-monitoring
         update: yes
         version: dev
 
     # install requirements
     - name: install pip requirements
       pip:
-        requirements: /home/gbm/grand-bargain-monitoring/requirements.txt
-        # executable: pip
-        virtualenv: /home/gbm/grand-bargain-monitoring/pyenv
+        requirements: /var/www/grand-bargain-monitoring/requirements.txt
+        virtualenv: /var/www/grand-bargain-monitoring/pyenv
         virtualenv_python: python3
         virtualenv_site_packages: no
 
