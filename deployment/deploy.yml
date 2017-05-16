@@ -31,4 +31,8 @@
 
     # set up cron job to update remote data on regular basis
 
+    # clone, set-up and configure IATI-Stats fork
+
+    # clone, set-up and configure IATI-Dashboard fork
+
     # run the app
