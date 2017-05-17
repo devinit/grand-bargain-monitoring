@@ -35,94 +35,71 @@ def load_csv_file(loc_type, name):
 		return list(reader)
 
 
-def publisherify_data(base_info, summary_stats):
+def publisherify_data(base_info, summary_stats, humanitarian_stats):
 	"""
 	Converts data to be in a format that allows direct querying by publisher.
 
 	Params:
 		base_info (list of dict): A list of dictionaries containing the base info.
 		summary_stats (list of dict): A list of dictionaries containing the summary stats.
+		humanitarian_stats (list of dict): A list of dictionaries containing the humanitarian stats.
 
 	Returns:
 		dict of dict: The keys in the first-level dictionary are publisher registry IDs.
 			Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	data = collections.defaultdict(dict)
-	all_values = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio']
+	all_value_names = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio']
 
+	# parse the static base info about publishers
 	for row in base_info:
 		registry_id = row['registry_id']
 		stats = ['baseline', 'first_published', 'name_en']
 		for stat in stats:
 			data[registry_id][stat] = row[stat]
 
+	# parse the summary statistics
 	for row in summary_stats:
 		registry_id = row['Publisher Registry Id']
-
 		# only track data for Grand Bargain signatories
 		if registry_id in data:
-			stats = ['Timeliness', 'Forward looking', 'Comprehensive', 'Coverage']
+			stats = ['Timeliness', 'Forward looking', 'Comprehensive']
 			for stat in stats:
 				data[registry_id][stat] = row[stat]
 
-	# generate fake data for values we do not yet have
-	import random
-	import math
-	for k in data.keys():
-		# until real humanitarian data is available, use a RNG
-		# TODO: Use real humanitarian numbers
-		data[k]['humanitarian'] = str(random.randint(0, 100))
+	# parse the humanitarian stats (only summary value is used)
+	for row in humanitarian_stats:
+		registry_id = row['Publisher Registry Id']
+		# only track data for Grand Bargain signatories
+		if registry_id in data:
+			data[registry_id]['humanitarian'] = row['Humanitarian Score']
 
-		# until real Data Use data available, use random values
-		data[k]['fts_import'] = bool(random.getrandbits(1))
-		data_use_statements = ['', '', '', '', '', 'I use data', 'I do not use data', 'I use lots of data', 'A statement not about data']
-		data[k]['data_use_self'] = data_use_statements[random.randint(0, len(data_use_statements)-1)]
-		data[k]['data_use_other'] = data_use_statements[random.randint(0, len(data_use_statements)-1)]
-
-	# deal with coverage values
-	for k in data.keys():
+	# deal with values not gained from CSV files
+	for registry_id in data.keys():
 		# until real baseline data is available, use a RNG
 		# TODO: Use real baseline numbers
-		data[k]['baseline'] = str(random.randint(0, 100))
+		import random
+		data[registry_id]['baseline'] = str(random.randint(0, 100))
 
-    # set various coverage values to zero
-		data[k]['humanitarian_spend_reference'] = 0
-		data[k]['humanitarian_spend_iati'] = 0
-		data[k]['spend_ratio'] = 0
-
-	# calculate totals
-	for k in data.keys():
-		# data use totals
-		data[k]['data_use_total'] = 0
-		data[k]['data_use_total'] = data[k]['data_use_total'] + 50 if data[k]['fts_import'] else data[k]['data_use_total']
-		data[k]['data_use_total'] = data[k]['data_use_total'] + 25 if len(data[k]['data_use_self']) > 0 else data[k]['data_use_total']
-		data[k]['data_use_total'] = data[k]['data_use_total'] + 25 if len(data[k]['data_use_other']) > 0 else data[k]['data_use_total']
-
-		# coverage totals
-		if data[k]['spend_ratio'] == 0:
-			data[k]['humanitarian_coverage_total'] = 0
-		elif data[k]['spend_ratio'] < 40:
-			data[k]['humanitarian_coverage_total'] = 40
-		elif data[k]['spend_ratio'] < 60:
-			data[k]['humanitarian_coverage_total'] = 60
-		elif data[k]['spend_ratio'] < 80:
-			data[k]['humanitarian_coverage_total'] = 80
-		else:
-			data[k]['humanitarian_coverage_total'] = 100
+    	# set various coverage values to zero
+		data[registry_id]['humanitarian_spend_reference'] = 0
+		data[registry_id]['humanitarian_spend_iati'] = 0
+		data[registry_id]['spend_ratio'] = 0
+		data[registry_id]['humanitarian_coverage_total'] = 0
 
 	# fill in blanks
-	for k in data.keys():
-		for k2 in all_values:
-			if k2 not in data[k].keys() or data[k][k2] == '':
-				data[k][k2] = 0
+	for registry_id in data.keys():
+		for value_name in all_value_names:
+			if value_name not in data[registry_id].keys() or data[registry_id][value_name] == '':
+				data[registry_id][value_name] = 0
 
-	# calculate summary
-	for k in data.keys():
-		high_total= int(data[k]['Timeliness']) + int(data[k]['Forward looking']) + int(data[k]['Comprehensive']) + int(data[k]['humanitarian_coverage_total'])
-		data[k]['summary_total'] = round(high_total / 4)
+	# calculate summary total value
+	for registry_id in data.keys():
+		high_total= int(data[registry_id]['Timeliness']) + int(data[registry_id]['Forward looking']) + int(data[registry_id]['Comprehensive']) + int(data[registry_id]['humanitarian'])
+		data[registry_id]['summary_total'] = round(high_total / 4)
 
 		# progress
-		data[k]['progress'] = data[k]['summary_total'] - int(data[k]['baseline'])
+		data[registry_id]['progress'] = data[registry_id]['summary_total'] - int(data[registry_id]['baseline'])
 
 	return data
 
@@ -137,6 +114,7 @@ def load_and_format_data():
 	"""
 	base_info = load_csv_file('static', 'base_info.csv')
 	summary_stats = load_csv_file('remote', 'summary_stats.csv')
-	data_by_publisher = publisherify_data(base_info, summary_stats)
+	humanitarian_stats = load_csv_file('remote', 'humanitarian.csv')
+	data_by_publisher = publisherify_data(base_info, summary_stats, humanitarian_stats)
 
 	return data_by_publisher

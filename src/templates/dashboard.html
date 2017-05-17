@@ -17,11 +17,10 @@
 					<th class="sort" data-sort="comprehensive">Comprehensive</th>
 					<th class="sort" data-sort="forward-looking">Forward Looking</th>
 					<th class="sort" data-sort="coverage">Coverage</th>
-					<th class="sort" data-sort="humanitarian">Humanitarian*</th>
-					<th class="sort" data-sort="data-use">Data Use*</th>
+					<th class="sort" data-sort="humanitarian">Humanitarian</th>
 					<th class="sort" data-sort="total">Total</th>
 					<th class="sort" data-sort="progress">Progress*</th>
-					<th class="sort" data-sort="baseline">Baseline</th>
+					<th class="sort" data-sort="baseline">Baseline*</th>
 				</tr>
 			</thead>
 			<tbody class="list">
@@ -34,7 +33,6 @@
 					<td class="forward-looking pc-{{ data[k]['Comprehensive'] }}">{{ data[k]['Comprehensive'] if data[k]['Comprehensive'] != '' else '0' }}</td>
 					<td class="coverage pc-{{ data[k]['humanitarian_coverage_total'] }}">{{ data[k]['humanitarian_coverage_total'] if data[k]['humanitarian_coverage_total'] else '0' }}</td>
 					<td class="humanitarian pc-{{ data[k]['humanitarian'] }}">{{ data[k]['humanitarian'] if data[k]['humanitarian'] != '' else '0' }}</td>
-					<td class="data-use pc-{{ data[k]['data_use_total'] }}">{{ data[k]['data_use_total'] if data[k]['data_use_total'] else '0' }}</td>
 					<td class="summary-total">{{ data[k]['summary_total'] if data[k]['summary_total'] != '' else '0' }}</td>
 					<td class="{{ 'positive-progress' if data[k]['progress'] > 0 }}">{{ data[k]['progress'] if data[k]['progress'] != '' else '0' }}</td>
 					<td class="baseline">{{ data[k]['baseline'] if data[k]['baseline'] != '' else '0' }}</td>
