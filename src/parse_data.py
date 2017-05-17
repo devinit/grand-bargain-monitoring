@@ -93,9 +93,9 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 			if value_name not in data[registry_id].keys() or data[registry_id][value_name] == '':
 				data[registry_id][value_name] = 0
 
-	# calculate summary
+	# calculate summary total value
 	for registry_id in data.keys():
-		high_total= int(data[registry_id]['Timeliness']) + int(data[registry_id]['Forward looking']) + int(data[registry_id]['Comprehensive']) + int(data[registry_id]['humanitarian_coverage_total'])
+		high_total= int(data[registry_id]['Timeliness']) + int(data[registry_id]['Forward looking']) + int(data[registry_id]['Comprehensive']) + int(data[registry_id]['humanitarian'])
 		data[registry_id]['summary_total'] = round(high_total / 4)
 
 		# progress
