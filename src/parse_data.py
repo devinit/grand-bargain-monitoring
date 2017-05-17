@@ -49,6 +49,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 			Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	data = collections.defaultdict(dict)
+	all_values = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio']
 
 	for row in base_info:
 		registry_id = row['registry_id']
@@ -76,32 +77,19 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 			# set the value for the summary table
 			data[registry_id]['humanitarian'] = data[registry_id]['Humanitarian Score']
 
-
-	# generate fake data for values we do not yet have
-	import random
-	import math
-	for k in data.keys():
-		# until real Data Use data available, use random values
-		data[k]['fts_import'] = bool(random.getrandbits(1))
-		data_use_statements = ['', '', '', '', '', 'I use data', 'I do not use data', 'I use lots of data', 'A statement not about data']
-		data[k]['data_use_self'] = data_use_statements[random.randint(0, len(data_use_statements)-1)]
-		data[k]['data_use_other'] = data_use_statements[random.randint(0, len(data_use_statements)-1)]
-
 	# deal with coverage values
 	for k in data.keys():
-		# until real coverage data available, use a RNG
+		# until real baseline data is available, use a RNG
+		# TODO: Use real baseline numbers
+		data[k]['baseline'] = str(random.randint(0, 100))
+
+    # set various coverage values to zero
 		data[k]['humanitarian_spend_reference'] = 0
 		data[k]['humanitarian_spend_iati'] = 0
 		data[k]['spend_ratio'] = 0
 
 	# calculate totals
 	for k in data.keys():
-		# data use totals
-		data[k]['data_use_total'] = 0
-		data[k]['data_use_total'] = data[k]['data_use_total'] + 50 if data[k]['fts_import'] else data[k]['data_use_total']
-		data[k]['data_use_total'] = data[k]['data_use_total'] + 25 if len(data[k]['data_use_self']) > 0 else data[k]['data_use_total']
-		data[k]['data_use_total'] = data[k]['data_use_total'] + 25 if len(data[k]['data_use_other']) > 0 else data[k]['data_use_total']
-
 		# coverage totals
 		if data[k]['spend_ratio'] == 0:
 			data[k]['humanitarian_coverage_total'] = 0
@@ -113,6 +101,20 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 			data[k]['humanitarian_coverage_total'] = 80
 		else:
 			data[k]['humanitarian_coverage_total'] = 100
+
+	# fill in blanks
+	for k in data.keys():
+		for k2 in all_values:
+			if k2 not in data[k].keys() or data[k][k2] == '':
+				data[k][k2] = 0
+
+	# calculate summary
+	for k in data.keys():
+		high_total= int(data[k]['Timeliness']) + int(data[k]['Forward looking']) + int(data[k]['Comprehensive']) + int(data[k]['humanitarian_coverage_total'])
+		data[k]['summary_total'] = round(high_total / 4)
+
+		# progress
+		data[k]['progress'] = data[k]['summary_total'] - int(data[k]['baseline'])
 
 	return data
 

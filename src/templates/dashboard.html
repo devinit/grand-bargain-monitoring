@@ -8,7 +8,6 @@
 <div class="tab-content">
 
 	<div role="tabpanel" class="tab-pane active" id="summary-tab">
-		<input class="search" placeholder="Search" />
 		<table class="table">
 			<thead>
 				<tr>
@@ -19,8 +18,8 @@
 					<th class="sort" data-sort="forward-looking">Forward Looking</th>
 					<th class="sort" data-sort="coverage">Coverage</th>
 					<th class="sort" data-sort="humanitarian">Humanitarian</th>
-					<th class="sort" data-sort="data-use">Data Use*</th>
 					<th class="sort" data-sort="total">Total</th>
+					<th class="sort" data-sort="progress">Progress*</th>
 					<th class="sort" data-sort="baseline">Baseline</th>
 				</tr>
 			</thead>
@@ -34,55 +33,24 @@
 					<td class="forward-looking pc-{{ data[k]['Comprehensive'] }}">{{ data[k]['Comprehensive'] if data[k]['Comprehensive'] != '' else '0' }}</td>
 					<td class="coverage pc-{{ data[k]['humanitarian_coverage_total'] }}">{{ data[k]['humanitarian_coverage_total'] if data[k]['humanitarian_coverage_total'] else '0' }}</td>
 					<td class="humanitarian pc-{{ data[k]['humanitarian'] }}">{{ data[k]['humanitarian'] if data[k]['humanitarian'] != '' else '0' }}</td>
-					<td class="data-use pc-{{ data[k]['data_use_total'] }}">{{ data[k]['data_use_total'] if data[k]['data_use_total'] else '0' }}</td>
-					<td class="summary-total">TBC</td>
+					<td class="summary-total">{{ data[k]['summary_total'] if data[k]['summary_total'] != '' else '0' }}</td>
+					<td class="{{ 'positive-progress' if data[k]['progress'] > 0 }}">{{ data[k]['progress'] if data[k]['progress'] != '' else '0' }}</td>
 					<td class="baseline">{{ data[k]['baseline'] if data[k]['baseline'] != '' else '0' }}</td>
 				</tr>
 				{% endfor %}
 			</tbody>
 		</table>
 	</div>
-
 </div>
 
-<script src="static/js/list.min.js"></script>
+<script src="static/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
-var summary_options = {
-	valueNames: [
-		'organisation',
-		'first-published',
-		'timeliness',
-		'comprehensive',
-		'forward-looking',
-		'coverage',
-		'humanitarian',
-		'data-use',
-		'summary-total',
-		'baseline'
-	]
-};
-var summary_list = new List('summary-tab', summary_options);
-
-var data_use_options = {
-	valueNames: [
-		'organisation',
-		'fts-import',
-		'data-use-self',
-		'data-use-other',
-		'data-use-total'
-	]
-};
-var data_use_list = new List('data-use-tab', data_use_options);
-
-var coverage_options = {
-	valueNames: [
-		'organisation',
-		'humanitarian-spend-iati',
-		'humanitarian-spend-reference',
-		'spend-ratio',
-		'humanitarian-coverage-total'
-	]
-};
-var coverage_list = new List('coverage-tab', coverage_options);
+$(document).ready(function(){
+	$('.table').DataTable({
+		"order": [[ 0, "asc" ]],
+		"paging": false,
+		"fixedHeader": true
+	});
+});
 </script>
 {% endblock %}
