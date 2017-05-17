@@ -84,20 +84,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 		data[k]['humanitarian_spend_reference'] = 0
 		data[k]['humanitarian_spend_iati'] = 0
 		data[k]['spend_ratio'] = 0
-
-	# calculate totals
-	for k in data.keys():
-		# coverage totals
-		if data[k]['spend_ratio'] == 0:
-			data[k]['humanitarian_coverage_total'] = 0
-		elif data[k]['spend_ratio'] < 40:
-			data[k]['humanitarian_coverage_total'] = 40
-		elif data[k]['spend_ratio'] < 60:
-			data[k]['humanitarian_coverage_total'] = 60
-		elif data[k]['spend_ratio'] < 80:
-			data[k]['humanitarian_coverage_total'] = 80
-		else:
-			data[k]['humanitarian_coverage_total'] = 100
+		data[k]['humanitarian_coverage_total'] = 0
 
 	# fill in blanks
 	for k in data.keys():
