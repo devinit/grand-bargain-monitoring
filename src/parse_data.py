@@ -49,72 +49,57 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 			Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	data = collections.defaultdict(dict)
-	all_values = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio']
+	all_value_names = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio']
 
+	# parse the static base info about publishers
 	for row in base_info:
 		registry_id = row['registry_id']
 		stats = ['baseline', 'first_published', 'name_en']
 		for stat in stats:
 			data[registry_id][stat] = row[stat]
 
+	# parse the summary statistics
 	for row in summary_stats:
 		registry_id = row['Publisher Registry Id']
-
 		# only track data for Grand Bargain signatories
 		if registry_id in data:
-			stats = ['Timeliness', 'Forward looking', 'Comprehensive', 'Coverage']
+			stats = ['Timeliness', 'Forward looking', 'Comprehensive']
 			for stat in stats:
 				data[registry_id][stat] = row[stat]
 
+	# parse the humanitarian stats (only summary value is used)
 	for row in humanitarian_stats:
 		registry_id = row['Publisher Registry Id']
-
 		# only track data for Grand Bargain signatories
 		if registry_id in data:
-			stats = ['Publisher Type', 'Number of Activities', 'Publishing Humanitarian', 'Using Humanitarian Attribute', 'Appeal or Emergency Details', 'Clusters', 'Humanitarian Score']
-			for stat in stats:
-				data[registry_id][stat] = row[stat]
-			# set the value for the summary table
-			data[registry_id]['humanitarian'] = data[registry_id]['Humanitarian Score']
+			data[registry_id]['humanitarian'] = row['Humanitarian Score']
 
-	# deal with coverage values
-	for k in data.keys():
+	# deal with values not gained from CSV files
+	for registry_id in data.keys():
 		# until real baseline data is available, use a RNG
 		# TODO: Use real baseline numbers
-		data[k]['baseline'] = str(random.randint(0, 100))
+		import random
+		data[registry_id]['baseline'] = str(random.randint(0, 100))
 
-    # set various coverage values to zero
-		data[k]['humanitarian_spend_reference'] = 0
-		data[k]['humanitarian_spend_iati'] = 0
-		data[k]['spend_ratio'] = 0
-
-	# calculate totals
-	for k in data.keys():
-		# coverage totals
-		if data[k]['spend_ratio'] == 0:
-			data[k]['humanitarian_coverage_total'] = 0
-		elif data[k]['spend_ratio'] < 40:
-			data[k]['humanitarian_coverage_total'] = 40
-		elif data[k]['spend_ratio'] < 60:
-			data[k]['humanitarian_coverage_total'] = 60
-		elif data[k]['spend_ratio'] < 80:
-			data[k]['humanitarian_coverage_total'] = 80
-		else:
-			data[k]['humanitarian_coverage_total'] = 100
+    	# set various coverage values to zero
+		data[registry_id]['humanitarian_spend_reference'] = 0
+		data[registry_id]['humanitarian_spend_iati'] = 0
+		data[registry_id]['spend_ratio'] = 0
+		data[registry_id]['humanitarian_coverage_total'] = 0
 
 	# fill in blanks
-	for k in data.keys():
-		for k2 in all_values:
-			if k2 not in data[k].keys() or data[k][k2] == '':
-				data[k][k2] = 0
+	for registry_id in data.keys():
+		for value_name in all_value_names:
+			if value_name not in data[registry_id].keys() or data[registry_id][value_name] == '':
+				data[registry_id][value_name] = 0
 
-	# calculate summary
-	for k in data.keys():
-		high_total= int(data[k]['Timeliness']) + int(data[k]['Forward looking']) + int(data[k]['Comprehensive']) + int(data[k]['humanitarian'])
-		data[k]['summary_total'] = round(high_total / 4)
+	# calculate summary total value
+	for registry_id in data.keys():
+		high_total= int(data[registry_id]['Timeliness']) + int(data[registry_id]['Forward looking']) + int(data[registry_id]['Comprehensive']) + int(data[registry_id]['humanitarian'])
+		data[registry_id]['summary_total'] = round(high_total / 4)
 
 		# progress
-		data[k]['progress'] = data[k]['summary_total'] - int(data[k]['baseline'])
+		data[registry_id]['progress'] = data[registry_id]['summary_total'] - int(data[registry_id]['baseline'])
 
 	return data
 
