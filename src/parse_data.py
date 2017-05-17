@@ -77,6 +77,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 	for k in data.keys():
 		# until real baseline data is available, use a RNG
 		# TODO: Use real baseline numbers
+		import random
 		data[k]['baseline'] = str(random.randint(0, 100))
 
     	# set various coverage values to zero
