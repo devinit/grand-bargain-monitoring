@@ -110,7 +110,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 
 	# calculate summary
 	for k in data.keys():
-		high_total= int(data[k]['Timeliness']) + int(data[k]['Forward looking']) + int(data[k]['Comprehensive']) + int(data[k]['humanitarian_coverage_total'])
+		high_total= int(data[k]['Timeliness']) + int(data[k]['Forward looking']) + int(data[k]['Comprehensive']) + int(data[k]['humanitarian'])
 		data[k]['summary_total'] = round(high_total / 4)
 
 		# progress
