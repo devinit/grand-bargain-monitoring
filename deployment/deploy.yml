@@ -12,7 +12,7 @@
         repo: https://github.com/devinit/grand-bargain-monitoring.git
         dest: /home/gbm/grand-bargain-monitoring
         update: yes
-        version: master
+        version: deployment
 
     # create directory to store remote data in
     - name: create remote data directory
