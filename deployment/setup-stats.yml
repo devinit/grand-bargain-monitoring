@@ -20,6 +20,11 @@
         name: git
         state: present
 
+    - name: Install gcc
+      apt:
+        name: gcc
+        state: present
+
     - name: Install python dev
       apt:
         name: python-dev
@@ -43,4 +48,9 @@
     - name: Install libxslt-dev
       apt:
         name: libxslt-dev
+        state: present
+
+    - name: Install lib32z1-dev
+      apt:
+        name: lib32z1-dev
         state: present

@@ -25,6 +25,12 @@ pyenv/
 #
 
 #
+# General Ansible ignores
+#
+
+*.retry
+
+#
 # General Python ignores
 #
 
