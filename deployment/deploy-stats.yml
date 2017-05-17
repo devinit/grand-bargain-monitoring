@@ -37,14 +37,6 @@
         owner: stats
         state: link
 
-    # clone historical data
-    - name: clone data repository
-      git:
-        repo: git://dashboard.iatistandard.org/IATI-Data-Snapshot.git
-        dest: /var/www/gbm-IATI-Stats/data
-        update: yes
-        version: automatic
-
     # run setup scripts
     - name: get codelist mapping
       script: /var/www/gbm-IATI-Stats/helpers/get_codelist_mapping.sh
@@ -67,3 +59,11 @@
         url: https://raw.githubusercontent.com/IATI/IATI-Dashboard/live/registry_id_relationships.csv
         dest: /var/www/gbm-IATI-Stats/helpers/registry_id_relationships.csv
         mode: 0440
+
+    # clone historical data
+    - name: clone data repository
+      git:
+        repo: git://dashboard.iatistandard.org/IATI-Data-Snapshot.git
+        dest: /var/www/gbm-IATI-Stats/data
+        update: yes
+        version: automatic
