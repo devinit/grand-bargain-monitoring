@@ -51,31 +51,27 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 	data = collections.defaultdict(dict)
 	all_values = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio']
 
+	# parse the static base info about publishers
 	for row in base_info:
 		registry_id = row['registry_id']
 		stats = ['baseline', 'first_published', 'name_en']
 		for stat in stats:
 			data[registry_id][stat] = row[stat]
 
+	# parse the summary statistics
 	for row in summary_stats:
 		registry_id = row['Publisher Registry Id']
 
 		# only track data for Grand Bargain signatories
 		if registry_id in data:
-			stats = ['Timeliness', 'Forward looking', 'Comprehensive', 'Coverage']
+			stats = ['Timeliness', 'Forward looking', 'Comprehensive']
 			for stat in stats:
 				data[registry_id][stat] = row[stat]
 
+	# parse the humanitarian stats (only summary value is used)
 	for row in humanitarian_stats:
 		registry_id = row['Publisher Registry Id']
-
-		# only track data for Grand Bargain signatories
-		if registry_id in data:
-			stats = ['Publisher Type', 'Number of Activities', 'Publishing Humanitarian', 'Using Humanitarian Attribute', 'Appeal or Emergency Details', 'Clusters', 'Humanitarian Score']
-			for stat in stats:
-				data[registry_id][stat] = row[stat]
-			# set the value for the summary table
-			data[registry_id]['humanitarian'] = data[registry_id]['Humanitarian Score']
+		data[registry_id]['humanitarian'] = row['Humanitarian Score']
 
 	# deal with coverage values
 	for k in data.keys():
@@ -83,7 +79,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 		# TODO: Use real baseline numbers
 		data[k]['baseline'] = str(random.randint(0, 100))
 
-    # set various coverage values to zero
+    	# set various coverage values to zero
 		data[k]['humanitarian_spend_reference'] = 0
 		data[k]['humanitarian_spend_iati'] = 0
 		data[k]['spend_ratio'] = 0
