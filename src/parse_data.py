@@ -61,7 +61,6 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 	# parse the summary statistics
 	for row in summary_stats:
 		registry_id = row['Publisher Registry Id']
-
 		# only track data for Grand Bargain signatories
 		if registry_id in data:
 			stats = ['Timeliness', 'Forward looking', 'Comprehensive']
@@ -71,7 +70,9 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 	# parse the humanitarian stats (only summary value is used)
 	for row in humanitarian_stats:
 		registry_id = row['Publisher Registry Id']
-		data[registry_id]['humanitarian'] = row['Humanitarian Score']
+		# only track data for Grand Bargain signatories
+		if registry_id in data:
+			data[registry_id]['humanitarian'] = row['Humanitarian Score']
 
 	# deal with coverage values
 	for registry_id in data.keys():
