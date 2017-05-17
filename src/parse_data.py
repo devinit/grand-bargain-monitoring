@@ -49,7 +49,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 			Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	data = collections.defaultdict(dict)
-	all_values = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio']
+	all_value_names = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio']
 
 	# parse the static base info about publishers
 	for row in base_info:
@@ -87,10 +87,10 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 		data[k]['humanitarian_coverage_total'] = 0
 
 	# fill in blanks
-	for k in data.keys():
-		for k2 in all_values:
-			if k2 not in data[k].keys() or data[k][k2] == '':
-				data[k][k2] = 0
+	for registry_id in data.keys():
+		for value_name in all_value_names:
+			if value_name not in data[registry_id].keys() or data[registry_id][value_name] == '':
+				data[registry_id][value_name] = 0
 
 	# calculate summary
 	for k in data.keys():
