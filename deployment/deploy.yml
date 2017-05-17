@@ -37,7 +37,13 @@
         group: root
         mode: 0644
 
+    # use get_url commands rather than running `src/load_remote_data.py`
     # download remote data
+    - name: download summary_stats.csv
+      get_url:
+        url: http://dashboard.iatistandard.org/summary_stats.csv
+        dest: /var/www/grand-bargain-monitoring/data/remote/summary_stats.csv
+        mode: 0440
 
     # set up cron job to update remote data on regular basis
 
