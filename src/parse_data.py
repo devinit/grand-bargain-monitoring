@@ -74,17 +74,17 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 		data[registry_id]['humanitarian'] = row['Humanitarian Score']
 
 	# deal with coverage values
-	for k in data.keys():
+	for registry_id in data.keys():
 		# until real baseline data is available, use a RNG
 		# TODO: Use real baseline numbers
 		import random
-		data[k]['baseline'] = str(random.randint(0, 100))
+		data[registry_id]['baseline'] = str(random.randint(0, 100))
 
     	# set various coverage values to zero
-		data[k]['humanitarian_spend_reference'] = 0
-		data[k]['humanitarian_spend_iati'] = 0
-		data[k]['spend_ratio'] = 0
-		data[k]['humanitarian_coverage_total'] = 0
+		data[registry_id]['humanitarian_spend_reference'] = 0
+		data[registry_id]['humanitarian_spend_iati'] = 0
+		data[registry_id]['spend_ratio'] = 0
+		data[registry_id]['humanitarian_coverage_total'] = 0
 
 	# fill in blanks
 	for registry_id in data.keys():
@@ -93,12 +93,12 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 				data[registry_id][value_name] = 0
 
 	# calculate summary
-	for k in data.keys():
-		high_total= int(data[k]['Timeliness']) + int(data[k]['Forward looking']) + int(data[k]['Comprehensive']) + int(data[k]['humanitarian_coverage_total'])
-		data[k]['summary_total'] = round(high_total / 4)
+	for registry_id in data.keys():
+		high_total= int(data[registry_id]['Timeliness']) + int(data[registry_id]['Forward looking']) + int(data[registry_id]['Comprehensive']) + int(data[registry_id]['humanitarian_coverage_total'])
+		data[registry_id]['summary_total'] = round(high_total / 4)
 
 		# progress
-		data[k]['progress'] = data[k]['summary_total'] - int(data[k]['baseline'])
+		data[registry_id]['progress'] = data[registry_id]['summary_total'] - int(data[registry_id]['baseline'])
 
 	return data
 
