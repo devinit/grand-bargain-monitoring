@@ -10,21 +10,21 @@
     - name: clone grand-bargain-monitoring git repository
       git:
         repo: https://github.com/devinit/grand-bargain-monitoring.git
-        dest: /var/www/grand-bargain-monitoring
+        dest: /home/gbm/grand-bargain-monitoring
         update: yes
         version: master
 
     # create directory to store remote data in
     - name: create remote data directory
       file:
-        path: /var/www/grand-bargain-monitoring/data/remote
+        path: /home/gbm/grand-bargain-monitoring/data/remote
         state: directory
 
     # install requirements
     - name: install pip requirements
       pip:
-        requirements: /var/www/grand-bargain-monitoring/requirements.txt
-        virtualenv: /var/www/grand-bargain-monitoring/pyenv
+        requirements: /home/gbm/grand-bargain-monitoring/requirements.txt
+        virtualenv: /home/gbm/grand-bargain-monitoring/pyenv
         virtualenv_python: python3
         virtualenv_site_packages: no
 
@@ -42,7 +42,7 @@
     - name: download summary_stats.csv
       get_url:
         url: http://dashboard.iatistandard.org/summary_stats.csv
-        dest: /var/www/grand-bargain-monitoring/data/remote/summary_stats.csv
+        dest: /home/gbm/grand-bargain-monitoring/data/remote/summary_stats.csv
         mode: 0440
 
     # set up cron job to update remote data on regular basis
@@ -51,7 +51,7 @@
     - name: clone devinit/gbm-IATI-Stats git repository
       git:
         repo: https://github.com/devinit/gbm-IATI-Stats.git
-        dest: /var/www/gbm-IATI-Stats
+        dest: /home/gbm/gbm-IATI-Stats
         update: yes
         version: stop-after-csv-gen
 
@@ -59,7 +59,7 @@
     - name: clone devinit/gbm-IATI-Dashboard git repository
       git:
         repo: https://github.com/devinit/gbm-IATI-Dashboard.git
-        dest: /var/www/gbm-IATI-Dashboard
+        dest: /home/gbm/gbm-IATI-Dashboard
         update: yes
         version: humanitarian-only
 
