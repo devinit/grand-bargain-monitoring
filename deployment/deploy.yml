@@ -6,8 +6,8 @@
   become_user: gbm
 
   tasks:
-    # download the application
-    - name: clone git repository
+    # download the grand-bargain-monitoring application
+    - name: clone grand-bargain-monitoring git repository
       git:
         repo: https://github.com/devinit/grand-bargain-monitoring.git
         dest: /var/www/grand-bargain-monitoring
@@ -48,7 +48,19 @@
     # set up cron job to update remote data on regular basis
 
     # clone, set-up and configure IATI-Stats fork
+    - name: clone devinit/IATI-Stats git repository
+      git:
+        repo: https://github.com/devinit/IATI-Stats.git
+        dest: /var/www/IATI-Stats
+        update: yes
+        version: stop-after-csv-gen
 
     # clone, set-up and configure IATI-Dashboard fork
+    - name: clone devinit/IATI-Dashboard git repository
+      git:
+        repo: https://github.com/devinit/IATI-Dashboard.git
+        dest: /var/www/IATI-Dashboard
+        update: yes
+        version: humanitarian-only
 
     # run the app
