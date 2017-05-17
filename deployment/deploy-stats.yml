@@ -1,0 +1,69 @@
+---
+- hosts: stats-server
+  remote_user: root
+  become: yes
+  become_method: su
+  become_user: stats
+
+  tasks:
+    # clone, set-up and configure IATI-Stats fork
+    - name: clone devinit/gbm-IATI-Stats git repository
+      git:
+        repo: https://github.com/devinit/gbm-IATI-Stats.git
+        dest: /var/www/gbm-IATI-Stats
+        update: yes
+        version: stop-after-csv-gen
+
+    # install requirements
+    - name: install pip requirements
+      pip:
+        requirements: /var/www/gbm-IATI-Stats/requirements.txt
+        virtualenv: /var/www/gbm-IATI-Stats/pyenv
+        virtualenv_python: python3
+        virtualenv_site_packages: no
+
+    # clone Rulesets
+    - name: clone IATI/IATI-Rulesets git repository
+      git:
+        repo: https://github.com/IATI/IATI-Rulesets.git
+        dest: /var/www/gbm-IATI-Stats/helpers/IATI-Rulesets
+        update: yes
+
+    # link Rulesets to correct location
+    - name: link Rulesets into helpers
+      file:
+        src: /var/www/gbm-IATI-Stats/helpers/IATI-Rulesets/rulesets
+        dest: /var/www/gbm-IATI-Stats/helpers/rulesets
+        owner: stats
+        state: link
+
+    # clone historical data
+    - name: clone data repository
+      git:
+        repo: git://dashboard.iatistandard.org/IATI-Data-Snapshot.git
+        dest: /var/www/gbm-IATI-Stats/data
+        update: yes
+        version: automatic
+
+    # run setup scripts
+    - name: get codelist mapping
+      script: /var/www/gbm-IATI-Stats/helpers/get_codelist_mapping.sh
+
+    - name: get codelists
+      script: /var/www/gbm-IATI-Stats/helpers/get_codelists.sh
+
+    - name: get schemas
+      script: /var/www/gbm-IATI-Stats/helpers/get_schemas.sh
+
+    # download data files
+    - name: download ckan.json
+      get_url:
+        url: http://dashboard.iatistandard.org/stats/ckan.json
+        dest: /var/www/gbm-IATI-Stats/helpers/ckan.json
+        mode: 0440
+
+    - name: download registry_id_relationships.csv
+      get_url:
+        url: https://raw.githubusercontent.com/IATI/IATI-Dashboard/live/registry_id_relationships.csv
+        dest: /var/www/gbm-IATI-Stats/helpers/registry_id_relationships.csv
+        mode: 0440
