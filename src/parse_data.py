@@ -74,7 +74,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 		if registry_id in data:
 			data[registry_id]['humanitarian'] = row['Humanitarian Score']
 
-	# deal with coverage values
+	# deal with values not gained from CSV files
 	for registry_id in data.keys():
 		# until real baseline data is available, use a RNG
 		# TODO: Use real baseline numbers
