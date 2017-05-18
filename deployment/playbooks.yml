@@ -1,7 +1,9 @@
 ---
 - hosts: integrated-server
 
+- include: setup.yml
 - include: setup-stats.yml
 - include: setup-dash.yml
 - include: deploy-stats.yml
 - include: deploy-dash.yml
+- include: deploy-cron.yml
