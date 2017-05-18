@@ -35,6 +35,11 @@
         name: python2.7
         state: present
 
+    - name: Install python-dev
+      apt:
+        name: python-dev
+        state: present
+
     - name: Install virtualenv
       apt:
         name: virtualenv
