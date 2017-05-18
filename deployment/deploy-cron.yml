@@ -1,0 +1,15 @@
+---
+- hosts: integrated-server
+  remote_user: root
+  become: yes
+  become_method: su
+  become_user: gbm
+
+  tasks:
+    # add script to run on ongoing basis
+    - name: set up cron to update scores
+      cron:
+        name: "update scores"
+        minute: "0"
+        hour: "8"
+        job: "/home/gbm/grand-bargain-monitoring/deployment/cron-scripts/full-dashboard-run.sh > /home/gbm/logs/$(date +\%Y\%m\%d).log 2>&1"
