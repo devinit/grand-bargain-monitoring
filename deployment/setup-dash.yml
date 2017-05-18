@@ -40,6 +40,11 @@
         name: virtualenv
         state: present
 
+    - name: Install gcc
+      apt:
+        name: gcc
+        state: present
+
     - name: Install dev files for libfreetype6
       apt:
         name: libfreetype6-dev
