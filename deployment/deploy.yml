@@ -47,20 +47,4 @@
 
     # set up cron job to update remote data on regular basis
 
-    # clone, set-up and configure IATI-Stats fork
-    - name: clone devinit/gbm-IATI-Stats git repository
-      git:
-        repo: https://github.com/devinit/gbm-IATI-Stats.git
-        dest: /home/gbm/gbm-IATI-Stats
-        update: yes
-        version: humanitarian-only
-
-    # clone, set-up and configure IATI-Dashboard fork
-    - name: clone devinit/gbm-IATI-Dashboard git repository
-      git:
-        repo: https://github.com/devinit/gbm-IATI-Dashboard.git
-        dest: /home/gbm/gbm-IATI-Dashboard
-        update: yes
-        version: stop-after-csv-gen
-
     # run the app

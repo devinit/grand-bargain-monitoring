@@ -6,8 +6,8 @@
     # user-related actions
     - name: Create non-root account
       user:
-        name: gbm
-        comment: "Grand Bargain Monitoring Account"
+        name: stats
+        comment: "Stats Account"
         createhome: yes
 
     # software installation
@@ -20,9 +20,19 @@
         name: git
         state: present
 
-    - name: Install python 3
+    - name: Install gcc
       apt:
-        name: python3
+        name: gcc
+        state: present
+
+    - name: Install python dev
+      apt:
+        name: python-dev
+        state: present
+
+    - name: Install python virtualenv
+      apt:
+        name: python-virtualenv
         state: present
 
     - name: Install pip
@@ -30,12 +40,17 @@
         name: python-pip
         state: present
 
-    - name: Install virtualenv
+    - name: Install libxml2-dev
       apt:
-        name: virtualenv
+        name: libxml2-dev
         state: present
 
-    - name: Install apache
+    - name: Install libxslt-dev
       apt:
-        name: apache2
+        name: libxslt-dev
+        state: present
+
+    - name: Install lib32z1-dev
+      apt:
+        name: lib32z1-dev
         state: present
