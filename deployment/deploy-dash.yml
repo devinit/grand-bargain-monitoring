@@ -1,5 +1,5 @@
 ---
-- hosts: dash-server
+- hosts: integrated-server
   remote_user: root
   become: yes
   become_method: su

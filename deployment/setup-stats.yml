@@ -1,5 +1,5 @@
 ---
-- hosts: stats-server
+- hosts: integrated-server
   remote_user: root
 
   tasks:
