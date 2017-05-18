@@ -76,11 +76,6 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 
 	# deal with values not gained from CSV files
 	for registry_id in data.keys():
-		# until real baseline data is available, use a RNG
-		# TODO: Use real baseline numbers
-		import random
-		data[registry_id]['baseline'] = str(random.randint(0, 100))
-
     	# set various coverage values to zero
 		data[registry_id]['humanitarian_spend_reference'] = 0
 		data[registry_id]['humanitarian_spend_iati'] = 0
