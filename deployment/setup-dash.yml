@@ -1,0 +1,61 @@
+---
+- hosts:
+  remote_user: root
+
+  tasks:
+    # user-related actions
+    - name: Create non-root account
+      user:
+        name: dash
+        comment: "Dashboard Account"
+        createhome: yes
+
+    # software installation
+    - name: Update apt caches
+      apt:
+        update_cache: yes
+
+    - name: Install wget
+      apt:
+        name: wget
+        state: present
+
+    - name: Install curl
+      apt:
+        name: curl
+        state: present
+
+    - name: Install git
+      apt:
+        name: git
+        state: present
+
+    - name: Install python 2.7
+      apt:
+        name: python2.7
+        state: present
+
+    - name: Install virtualenv
+      apt:
+        name: virtualenv
+        state: present
+
+    - name: Install dev files for libfreetype6
+      apt:
+        name: libfreetype6-dev
+        state: present
+
+    - name: Install dev files for libpng
+      apt:
+        name: libpng-dev
+        state: present
+
+    - name: Install dev files for libxml2
+      apt:
+        name: libxml2-dev
+        state: present
+
+    - name: Install dev files for libxslt
+      apt:
+        name: libxslt-dev
+        state: present
