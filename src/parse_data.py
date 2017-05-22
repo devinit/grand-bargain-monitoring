@@ -54,7 +54,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 	# parse the static base info about publishers
 	for row in base_info:
 		registry_id = row['registry_id']
-		stats = ['baseline', 'first_published', 'name_en']
+		stats = ['first_published', 'name_en']
 		for stat in stats:
 			data[registry_id][stat] = row[stat]
 
