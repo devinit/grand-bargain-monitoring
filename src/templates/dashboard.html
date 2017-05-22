@@ -26,7 +26,7 @@
 			<tbody class="list">
 				{% for k in data %}
 				<tr>
-					<td class="organisation">
+					<td class="organisation" data-order="{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}">
 						{% if (data[k]['first_published'] != '' and data[k]['first_published'] != 0) %}
 							<a href="https://iatiregistry.org/publisher/about/{{ k }}">
 						{% endif %}
