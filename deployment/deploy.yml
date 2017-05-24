@@ -33,6 +33,12 @@
         dest: /var/www/grand-bargain-monitoring/data/remote/summary_stats.csv
         mode: 0440
 
+    - name: download humanitarian.csv
+      get_url:
+        url: http://dashboard.iatistandard.org/humanitarian.csv
+        dest: /var/www/grand-bargain-monitoring/data/remote/humanitarian.csv
+        mode: 0440
+
     # copy apache config file to correct location
     - name: copy apache2 config file
       copy:
