@@ -49,6 +49,24 @@
         group: root
         mode: 0644
 
+    # Add group varwwwusers
+    - name: Add varwwwusers group
+      group:
+        name: varwwwusers
+        state: present
+
+    - name: Add www-data to varwwwusers group
+      user:
+        name: www-data
+        group: varwwwusers
+
+    - name: Ensure directories in /var/www are 0755
+      command: find /var/www -type d -exec chmod 0755 {} \;
+
+    - name: Ensure files in /var/www are 0644
+      command: find /var/www -type f -exec chmod 0644 {} \;
+
+
     # set up cron job to update remote data on regular basis
 
     # clone, set-up and configure IATI-Stats fork
