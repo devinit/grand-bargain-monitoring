@@ -1,0 +1,56 @@
+---
+- hosts: stats-server
+  remote_user: root
+
+  tasks:
+    # user-related actions
+    - name: Create non-root account
+      user:
+        name: stats
+        comment: "Stats Account"
+        createhome: yes
+
+    # software installation
+    - name: Update apt caches
+      apt:
+        update_cache: yes
+
+    - name: Install git
+      apt:
+        name: git
+        state: present
+
+    - name: Install gcc
+      apt:
+        name: gcc
+        state: present
+
+    - name: Install python dev
+      apt:
+        name: python-dev
+        state: present
+
+    - name: Install python virtualenv
+      apt:
+        name: python-virtualenv
+        state: present
+
+    - name: Install pip
+      apt:
+        name: python-pip
+        state: present
+
+    - name: Install libxml2-dev
+      apt:
+        name: libxml2-dev
+        state: present
+
+    - name: Install libxslt-dev
+      apt:
+        name: libxslt-dev
+        state: present
+
+    - name: Install lib32z1-dev
+      apt:
+        name: lib32z1-dev
+        state: present
