@@ -28,6 +28,7 @@
     # copy apache config file to correct location
     - name: copy apache2 config file
       copy:
+        remote_src: True
         src: /var/www/grand-bargain-monitoring/deployment/apache2.conf
         dest: /etc/apache2/sites-available/000-default.conf
         owner: root
