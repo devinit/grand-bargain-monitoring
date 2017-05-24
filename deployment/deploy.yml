@@ -28,6 +28,20 @@
         virtualenv_python: python3
         virtualenv_site_packages: no
 
+    # use get_url commands rather than running `src/load_remote_data.py`
+    # download remote data
+    - name: download summary_stats.csv
+      get_url:
+        url: http://dashboard.iatistandard.org/summary_stats.csv
+        dest: /var/www/grand-bargain-monitoring/data/remote/summary_stats.csv
+        mode: 0440
+
+    - name: download humanitarian.csv
+      get_url:
+        url: http://dashboard.iatistandard.org/humanitarian.csv
+        dest: /var/www/grand-bargain-monitoring/data/remote/humanitarian.csv
+        mode: 0440
+
     # copy apache config file to correct location
     - name: copy apache2 config file
       copy:
@@ -47,4 +61,8 @@
 
     # set up cron job to update remote data on regular basis
 
-    # run the app
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
