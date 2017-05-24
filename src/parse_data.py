@@ -90,8 +90,8 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 
 	# calculate summary total value
 	for registry_id in data.keys():
-		high_total= int(data[registry_id]['Timeliness']) + int(data[registry_id]['Forward looking']) + int(data[registry_id]['Comprehensive']) + int(data[registry_id]['humanitarian'])
-		data[registry_id]['summary_total'] = round(high_total / 4)
+		high_total= (float(data[registry_id]['Timeliness']) * 0.25) + (float(data[registry_id]['Forward looking']) * 0.1) + (float(data[registry_id]['Comprehensive']) * 0.25) + (float(data[registry_id]['humanitarian_coverage_total']) * 0.15) + (float(data[registry_id]['humanitarian']) * 0.25)
+		data[registry_id]['summary_total'] = high_total
 
 		# progress
 		data[registry_id]['progress'] = data[registry_id]['summary_total'] - int(data[registry_id]['baseline'])
