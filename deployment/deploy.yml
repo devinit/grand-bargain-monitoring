@@ -48,6 +48,7 @@
         owner: root
         group: root
         mode: 0644
+      notify: restart apache
 
     # Add group varwwwusers
     - name: Add varwwwusers group
@@ -84,5 +85,11 @@
         dest: /var/www/gbm-IATI-Dashboard
         update: yes
         version: stop-after-csv-gen
+
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
 
     # run the app
