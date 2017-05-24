@@ -22,3 +22,26 @@ Running the App
 python src/app.py
 # navigate to http://127.0.0.1:5000/dashboard
 ```
+
+Deployment
+==========
+
+Deployment is undertaken using ansible.
+
+```
+# follow instructions at http://docs.ansible.com/ansible/intro_installation.html
+# check that ansible is working by pinging the server
+ansible gbm -i deployment/inventory.ini -m ping
+```
+
+*NOTE:* You must have ssh access to hosts specified in `inventory.ini` for this to work. This file may be modified to change the specified servers.
+
+```
+# configure the server
+ansible-playbook deployment/setup.yml -i deployment/inventory.ini
+```
+
+```
+# deploy the application
+ansible-playbook deployment/deploy.yml -i deployment/inventory.ini
+```

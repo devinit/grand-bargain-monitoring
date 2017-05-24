@@ -1,0 +1,95 @@
+---
+- hosts: gbm-server
+  remote_user: root
+
+  tasks:
+    # download the grand-bargain-monitoring application
+    - name: clone grand-bargain-monitoring git repository
+      git:
+        repo: https://github.com/devinit/grand-bargain-monitoring.git
+        dest: /var/www/grand-bargain-monitoring
+        update: yes
+        version: deployment
+
+    # create directory to store remote data in
+    - name: create remote data directory
+      file:
+        path: /var/www/grand-bargain-monitoring/data/remote
+        state: directory
+
+    # install requirements
+    - name: install pip requirements
+      pip:
+        requirements: /var/www/grand-bargain-monitoring/requirements.txt
+        virtualenv: /var/www/grand-bargain-monitoring/pyenv
+        virtualenv_python: python3
+        virtualenv_site_packages: no
+
+    # use get_url commands rather than running `src/load_remote_data.py`
+    # download remote data
+    - name: download summary_stats.csv
+      get_url:
+        url: http://dashboard.iatistandard.org/summary_stats.csv
+        dest: /var/www/grand-bargain-monitoring/data/remote/summary_stats.csv
+        mode: 0440
+
+    - name: download humanitarian.csv
+      get_url:
+        url: http://dashboard.iatistandard.org/humanitarian.csv
+        dest: /var/www/grand-bargain-monitoring/data/remote/humanitarian.csv
+        mode: 0440
+
+    # copy apache config file to correct location
+    - name: copy apache2 config file
+      copy:
+        remote_src: True
+        src: /var/www/grand-bargain-monitoring/deployment/apache2.conf
+        dest: /etc/apache2/sites-available/000-default.conf
+        owner: root
+        group: root
+        mode: 0644
+      notify: restart apache
+
+    # Add group varwwwusers
+    - name: Add varwwwusers group
+      group:
+        name: varwwwusers
+        state: present
+
+    - name: Add www-data to varwwwusers group
+      user:
+        name: www-data
+        group: varwwwusers
+
+    - name: Ensure directories in /var/www are 0755
+      command: find /var/www -type d -exec chmod 0755 {} \;
+
+    - name: Ensure files in /var/www are 0644
+      command: find /var/www -type f -exec chmod 0644 {} \;
+
+
+    # set up cron job to update remote data on regular basis
+
+    # clone, set-up and configure IATI-Stats fork
+    - name: clone devinit/gbm-IATI-Stats git repository
+      git:
+        repo: https://github.com/devinit/gbm-IATI-Stats.git
+        dest: /var/www/gbm-IATI-Stats
+        update: yes
+        version: humanitarian-only
+
+    # clone, set-up and configure IATI-Dashboard fork
+    - name: clone devinit/gbm-IATI-Dashboard git repository
+      git:
+        repo: https://github.com/devinit/gbm-IATI-Dashboard.git
+        dest: /var/www/gbm-IATI-Dashboard
+        update: yes
+        version: stop-after-csv-gen
+
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
+
+    # run the app
