@@ -1,0 +1,25 @@
+---
+- hosts: dash-server
+  remote_user: root
+  become: yes
+  become_method: su
+  become_user: dash
+
+  tasks:
+    # download the grand-bargain-monitoring application
+    - name: clone Dashboard git repository
+      git:
+        repo: https://github.com/devinit/gbm-IATI-Dashboard.git
+        dest: /home/dash/gbm-IATI-Dashboard
+        update: yes
+        version: stop-after-csv-gen
+
+    # install requirements
+    - name: install pip requirements
+      pip:
+        requirements: /home/dash/gbm-IATI-Dashboard/requirements.txt
+        virtualenv: /home/dash/gbm-IATI-Dashboard/pyenv
+        virtualenv_python: python2.7
+        virtualenv_site_packages: no
+
+    # add something to cron
