@@ -61,7 +61,10 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 		stats = ['baseline', 'first_published', 'name_en']
 
 		for stat in stats:
-			data[registry_id][stat] = row[stat]
+			try:
+				data[registry_id][stat] = row[stat]
+			except KeyError:
+				data[registry_id][stat] = 0
 
 	# parse the summary statistics
 	for row in summary_stats:
