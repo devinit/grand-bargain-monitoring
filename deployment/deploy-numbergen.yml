@@ -88,6 +88,32 @@
         virtualenv_python: python2.7
         virtualenv_site_packages: no
 
+    # ensure required folders exist under Stats
+    - name: ensure stats-blacklist directory exists
+      file:
+        path: /home/numbergen/gbm-IATI-Stats/stats-blacklist
+        state: directory
+
+    - name: ensure stats gitout directory exists
+      file:
+        path: /home/numbergen/gbm-IATI-Stats/gitout
+        state: directory
+
+    # link to stats
+    - name: link stats blacklist to Dashboard
+      file:
+        src: /home/numbergen/gbm-IATI-Stats/stats-blacklist
+        dest: /home/numbergen/gbm-IATI-Dashboard/stats-blacklist
+        owner: numbergen
+        state: link
+
+    - name: link generated stats to Dashboard
+      file:
+        src: /home/numbergen/gbm-IATI-Stats/gitout
+        dest: /home/numbergen/gbm-IATI-Dashboard/stats-calculated
+        owner: numbergen
+        state: link
+
     #
     # DATA
     #
