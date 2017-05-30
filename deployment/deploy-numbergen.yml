@@ -128,6 +128,15 @@
     #
     # CRON
     #
+    # prevent numbergen script running as root
+    - name: copy script to have the desired owner
+      copy:
+        remote_src: true
+        src: /var/www/grand-bargain-monitoring/deployment/cron-scripts/generate-numbers.sh
+        dest: /home/numbergen/generate-numbers.sh
+        owner: numbergen
+        mode: 0755
+
     # add script to run on ongoing basis
     # - name: set up cron to update scores
     #   cron:

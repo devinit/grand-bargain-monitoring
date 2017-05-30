@@ -9,7 +9,7 @@
         repo: https://github.com/devinit/grand-bargain-monitoring.git
         dest: /var/www/grand-bargain-monitoring
         update: yes
-        version: deployment
+        version: deployment-integrated
 
     # create directory to store remote data in
     - name: create remote data directory
@@ -68,12 +68,6 @@
       command: find /var/www -type f -exec chmod 0644 {} \;
 
     # add script to run on ongoing basis
-    - name: set up cron to update scores
-      cron:
-        name: "update scores"
-        minute: "0"
-        hour: "8"
-        job: "/home/gbm/grand-bargain-monitoring/deployment/cron-scripts/full-dashboard-run.sh > /home/gbm/logs/$(date +\%Y\%m\%d).log 2>&1"
 
   handlers:
     - name: restart apache
