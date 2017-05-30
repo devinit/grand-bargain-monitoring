@@ -76,6 +76,9 @@
         dest: /home/numbergen/gbm-IATI-Stats/gitout/gitaggregate-publisher-dated
         remote_src: true
 
+    - name: copy timeliness values to desired location
+      command: mv /home/numbergen/gbm-IATI-Stats/gitout/gitaggregate-publisher-dated/gitaggregate-publisher-dated-historical/dfid /home/numbergen/gbm-IATI-Stats/gitout/gitaggregate-publisher-dated/dfid
+
     #
     # DASH
     #
@@ -125,12 +128,12 @@
     # DATA
     #
     # clone historical data
-    - name: clone data repository
-      git:
-        repo: git://dashboard.iatistandard.org/IATI-Data-Snapshot.git
-        dest: /home/numbergen/gbm-IATI-Stats/data
-        update: yes
-        version: automatic
+    # - name: clone data repository
+    #   git:
+    #     repo: git://dashboard.iatistandard.org/IATI-Data-Snapshot.git
+    #     dest: /home/numbergen/gbm-IATI-Stats/data
+    #     update: yes
+    #     version: automatic
 
     #
     # CRON
