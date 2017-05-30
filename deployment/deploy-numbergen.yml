@@ -128,12 +128,12 @@
     # DATA
     #
     # clone historical data
-    # - name: clone data repository
-    #   git:
-    #     repo: git://dashboard.iatistandard.org/IATI-Data-Snapshot.git
-    #     dest: /home/numbergen/gbm-IATI-Stats/data
-    #     update: yes
-    #     version: automatic
+    - name: clone data repository
+      git:
+        repo: git://dashboard.iatistandard.org/IATI-Data-Snapshot.git
+        dest: /home/numbergen/gbm-IATI-Stats/data
+        update: yes
+        version: automatic
 
     #
     # CRON
