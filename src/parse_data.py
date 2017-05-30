@@ -1,6 +1,7 @@
 import collections
 import csv
 import os
+import uuid
 
 # local configuration
 data_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'data')
@@ -54,7 +55,11 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 	# parse the static base info about publishers
 	for row in base_info:
 		registry_id = row['registry_id']
+		# create a fake registry ID for those who are not yet publishing so that they are displayed as a row in the table
+		if len(registry_id.strip()) is 0:
+			registry_id = uuid.uuid4()
 		stats = ['first_published', 'name_en']
+    
 		for stat in stats:
 			data[registry_id][stat] = row[stat]
 
