@@ -39,3 +39,13 @@
       apt:
         name: apache2
         state: present
+
+    - name: Install apache/python3 depenencies
+      apt:
+        name: libapache2-mod-wsgi-py3
+        state: present
+
+    - name: Enable mod_rewrite
+      apache2_module:
+        name: rewrite
+        state: present

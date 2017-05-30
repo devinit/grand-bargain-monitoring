@@ -10,7 +10,7 @@ app = Flask(__name__)
 def dashboard():
     data = parse_data.load_and_format_data()
 
-    title = 'Grand Bargain Monitoring'
+    title = 'Grand Bargain Transparency Dashboard'
 
     return render_template('dashboard.html', data=data, heading=title, page_title=title)
 
