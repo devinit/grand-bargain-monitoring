@@ -1,0 +1,111 @@
+---
+- hosts: integrated-server
+  remote_user: root
+  become: yes
+  become_method: su
+  become_user: numbergen
+
+  tasks:
+    #
+    # STATS
+    #
+    # clone, set-up and configure IATI-Stats fork
+    - name: clone devinit/gbm-IATI-Stats git repository
+      git:
+        repo: https://github.com/devinit/gbm-IATI-Stats.git
+        dest: /home/numbergen/gbm-IATI-Stats
+        update: yes
+        version: humanitarian-only
+
+    # install requirements
+    - name: install pip requirements
+      pip:
+        requirements: /home/numbergen/gbm-IATI-Stats/requirements.txt
+        virtualenv: /home/numbergen/gbm-IATI-Stats/pyenv
+        virtualenv_python: python2.7
+        virtualenv_site_packages: no
+
+    # clone Rulesets
+    - name: clone IATI/IATI-Rulesets git repository
+      git:
+        repo: https://github.com/IATI/IATI-Rulesets.git
+        dest: /home/numbergen/gbm-IATI-Stats/helpers/IATI-Rulesets
+        update: yes
+
+    # link Rulesets to correct location
+    - name: link Rulesets into helpers
+      file:
+        src: /home/numbergen/gbm-IATI-Stats/helpers/IATI-Rulesets/rulesets
+        dest: /home/numbergen/gbm-IATI-Stats/helpers/rulesets
+        owner: stats
+        state: link
+
+    # run setup scripts
+    - name: get codelist mapping
+      command: bash get_codelist_mapping.sh
+      args:
+        chdir: /home/numbergen/gbm-IATI-Stats/helpers/
+
+    - name: get codelists
+      command: bash get_codelists.sh
+      args:
+        chdir: /home/numbergen/gbm-IATI-Stats/helpers/
+
+    - name: get schemas
+      command: bash get_schemas.sh
+      args:
+        chdir: /home/numbergen/gbm-IATI-Stats/helpers/
+
+    # download data files
+    - name: download ckan.json
+      get_url:
+        url: http://dashboard.iatistandard.org/stats/ckan.json
+        dest: /home/numbergen/gbm-IATI-Stats/helpers/ckan.json
+        mode: 0440
+
+    - name: download registry_id_relationships.csv
+      get_url:
+        url: https://raw.githubusercontent.com/IATI/IATI-Dashboard/live/registry_id_relationships.csv
+        dest: /home/numbergen/gbm-IATI-Stats/helpers/registry_id_relationships.csv
+        mode: 0440
+
+    #
+    # DASH
+    #
+    # clone, set-up and configure IATI-Dashboard fork
+    - name: clone Dashboard git repository
+      git:
+        repo: https://github.com/devinit/gbm-IATI-Dashboard.git
+        dest: /home/numbergen/gbm-IATI-Dashboard
+        update: yes
+        version: stop-after-csv-gen
+
+    # install requirements
+    - name: install pip requirements
+      pip:
+        requirements: /home/numbergen/gbm-IATI-Dashboard/requirements.txt
+        virtualenv: /home/numbergen/gbm-IATI-Dashboard/pyenv
+        virtualenv_python: python2.7
+        virtualenv_site_packages: no
+
+    #
+    # DATA
+    #
+    # clone historical data
+    - name: clone data repository
+      git:
+        repo: git://dashboard.iatistandard.org/IATI-Data-Snapshot.git
+        dest: /home/numbergen/gbm-IATI-Stats/data
+        update: yes
+        version: automatic
+
+    #
+    # CRON
+    #
+    # add script to run on ongoing basis
+    - name: set up cron to update scores
+      cron:
+        name: "update scores"
+        minute: "0"
+        hour: "8"
+        job: "/home/gbm/grand-bargain-monitoring/deployment/cron-scripts/full-dashboard-run.sh > /home/gbm/logs/$(date +\%Y\%m\%d).log 2>&1"

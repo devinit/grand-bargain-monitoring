@@ -21,7 +21,4 @@ source pyenv/bin/activate
 ./git.sh > /home/dashboard/logs/$(date +\%Y\%m\%d)-dashboard.log 2>&1
 deactivate
 
-echo "Copying data to Scorecard"
-# copy relevant generated CSVs to scorecard repo
-
 echo "Completed data update"
