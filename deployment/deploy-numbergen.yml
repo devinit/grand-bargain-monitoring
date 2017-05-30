@@ -37,7 +37,7 @@
       file:
         src: /home/numbergen/gbm-IATI-Stats/helpers/IATI-Rulesets/rulesets
         dest: /home/numbergen/gbm-IATI-Stats/helpers/rulesets
-        owner: stats
+        owner: numbergen
         state: link
 
     # run setup scripts
