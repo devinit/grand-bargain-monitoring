@@ -128,6 +128,11 @@
     #
     # CRON
     #
+    - name: ensure logs directory exists
+      file:
+        path: /home/numbergen/logs
+        state: directory
+
     # prevent numbergen script running as root
     - name: copy script to have the desired owner
       copy:
