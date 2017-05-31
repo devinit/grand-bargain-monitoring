@@ -159,4 +159,4 @@
         name: "update scores"
         minute: "0"
         hour: "8"
-        job: "/home/numbergen/generate-numbers.sh > /home/numbergen/logs/$(date +%Y%m%d)-generatenumbers.log 2>&1"
+        job: "/home/numbergen/generate-numbers.sh > /home/numbergen/logs/$(date -I)-generatenumbers.log 2>&1"
