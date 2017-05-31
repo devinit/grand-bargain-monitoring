@@ -69,7 +69,30 @@
     - name: Ensure files in /var/www are 0644
       command: find /var/www -type f -exec chmod 0644 {} \;
 
+    #
+    # CRON
+    #
+    - name: ensure logs directory exists
+      file:
+        path: /root/gbm/logs
+        state: directory
+
+    # prevent numbergen script running as root
+    - name: copy script to have the desired owner
+      copy:
+        remote_src: true
+        src: /var/www/grand-bargain-monitoring/deployment/cron-scripts/update-data.sh
+        dest: /root/gbm/update_data.sh
+        owner: root
+        mode: 0755
+
     # add script to run on ongoing basis
+    - name: set up cron to update scores
+      cron:
+        name: "update data"
+        minute: "23"
+        hour: "*"
+        job: "/root/gbm/update_data.sh > /root/gbm/logs/$(date +%Y%m%d)-updatedata.log 2>&1"
 
   handlers:
     - name: restart apache
