@@ -11,6 +11,6 @@ then
 fi
 
 # copy relevant generated CSVs to scorecard repo
-cp /home/numbergen/gbm-IATI-Dashboard/web/summary_stats.csv /var/www/grand-bargain-monitoring/data/remote/summary_stats.csv
+cp /home/numbergen/gbm-IATI-Dashboard/web/summary_stats.csv /var/www/grand-bargain-monitoring/data/app/summary_stats.csv
 
 echo "Updated Scorecard data"
