@@ -6,6 +6,7 @@ import uuid
 # local configuration
 data_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'data')
 data_path_remote = os.path.join(data_path, 'remote')
+data_path_local = os.path.join(data_path, 'app')
 data_path_static = os.path.join(data_path, 'static')
 
 
@@ -27,7 +28,12 @@ def load_csv_file(loc_type, name):
 	Warning:
 		Behavior when loading data from a location that does not contain valid CSV data is unspecified.
 	"""
-	path = data_path_remote if (loc_type == 'remote') else data_path_static
+	if loc_type == 'remote':
+		path = data_path_remote
+	elif loc_type == 'local':
+		path = data_path_local
+	else:
+		path = data_path_static
 
 	# TODO: Properly deal with files that don't exist
 	with open(os.path.join(path, name), 'r', encoding='utf-8') as f:
@@ -59,7 +65,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 		if len(registry_id.strip()) is 0:
 			registry_id = uuid.uuid4()
 		stats = ['first_published', 'name_en']
-    
+
 		for stat in stats:
 			data[registry_id][stat] = row[stat]
 
@@ -113,7 +119,7 @@ def load_and_format_data():
 			Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	base_info = load_csv_file('static', 'base_info.csv')
-	summary_stats = load_csv_file('remote', 'summary_stats.csv')
+	summary_stats = load_csv_file('local', 'summary_stats.csv')
 	humanitarian_stats = load_csv_file('remote', 'humanitarian.csv')
 	data_by_publisher = publisherify_data(base_info, summary_stats, humanitarian_stats)
 
