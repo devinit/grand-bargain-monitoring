@@ -4,7 +4,7 @@ echo "Copying data to Scorecard"
 
 # ensure we're not copying an empty file
 num_lines=`cat /home/numbergen/gbm-IATI-Dashboard/web/summary_stats.csv | wc -l`
-if [ $num_lines -lt 2 ]
+if [ $num_lines -lt 400 ]
 then
     echo "Not enough data to copy"
     exit 1
