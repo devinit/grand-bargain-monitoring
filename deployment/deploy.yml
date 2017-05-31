@@ -92,7 +92,7 @@
         name: "update data"
         minute: "23"
         hour: "*"
-        job: "/root/gbm/update_data.sh > /root/gbm/logs/$(date +%Y%m%d)-updatedata.log 2>&1"
+        job: "/root/gbm/update_data.sh > /root/gbm/logs/$(date -I)-updatedata.log 2>&1"
 
   handlers:
     - name: restart apache
