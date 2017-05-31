@@ -13,4 +13,17 @@ fi
 # copy relevant generated CSVs to scorecard repo
 cp /home/numbergen/gbm-IATI-Dashboard/web/summary_stats.csv /var/www/grand-bargain-monitoring/data/app/summary_stats.csv
 
-echo "Updated Scorecard data"
+echo "Copied Scorecard data"
+
+echo "Fetching humanitarian data from Dashboard"
+
+wget http://dashboard.iatistandard.org/humanitarian.csv -O /var/www/grand-bargain-monitoring/data/remote/humanitarian.csv --backups=10 --waitretry=60
+
+echo "Fetched humanitarian data"
+
+echo "Removing execution of data"
+
+chmod -x /var/www/grand-bargain-monitoring/data/remote/humanitarian.csv
+chmod -x /var/www/grand-bargain-monitoring/data/app/summary_stats.csv
+
+echo "Removed execution of humanitarian data"
