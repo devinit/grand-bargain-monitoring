@@ -56,7 +56,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 			Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	data = collections.defaultdict(dict)
-	all_value_names = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio']
+	all_value_names = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio', 'baseline']
 
 	# parse the static base info about publishers
 	for row in base_info:
@@ -64,8 +64,8 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 		# create a fake registry ID for those who are not yet publishing so that they are displayed as a row in the table
 		if len(registry_id.strip()) is 0:
 			registry_id = uuid.uuid4()
-
-		stats = ['baseline', 'first_published', 'name_en']
+      
+		stats = ['first_published', 'name_en', 'baseline']
 		for stat in stats:
 			try:
 				data[registry_id][stat] = row[stat]
@@ -108,7 +108,7 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 		data[registry_id]['summary_total'] = high_total
 
 		# progress
-		data[registry_id]['progress'] = data[registry_id]['summary_total'] - int(data[registry_id]['baseline'])
+		data[registry_id]['progress'] = data[registry_id]['summary_total'] - float(data[registry_id]['baseline'])
 
 	return data
 
