@@ -20,12 +20,12 @@
         state: directory
 
     # install requirements
-    # - name: install pip requirements
-    #   pip:
-    #     requirements: /var/www/grand-bargain-monitoring/requirements.txt
-    #     virtualenv: /var/www/grand-bargain-monitoring/pyenv
-    #     virtualenv_python: python3
-    #     virtualenv_site_packages: no
+    - name: install pip requirements
+      pip:
+        requirements: /var/www/grand-bargain-monitoring/requirements.txt
+        virtualenv: /var/www/grand-bargain-monitoring/pyenv
+        virtualenv_python: python3
+        virtualenv_site_packages: no
 
     # use get_url commands rather than running `src/load_remote_data.py`
     # download remote data

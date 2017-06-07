@@ -70,6 +70,12 @@
         mode: 0440
 
     # extract historical values calculated for timeliness purposes
+    - name: ensure gitout directory exists
+      file:
+        path: /home/numbergen/gbm-IATI-Stats/gitout
+        state: directory
+
+
     - name: extract timeliness values
       unarchive:
         src: /var/www/grand-bargain-monitoring/gitaggregate-publisher-dated-historical.tar.gz
