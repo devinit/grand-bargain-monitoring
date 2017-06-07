@@ -1,0 +1,7 @@
+---
+- hosts: integrated-server
+
+- include: setup.yml
+- include: setup-numbergen.yml
+- include: deploy.yml
+- include: deploy-numbergen.yml

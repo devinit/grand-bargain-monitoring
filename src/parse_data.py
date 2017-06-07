@@ -1,10 +1,12 @@
 import collections
 import csv
 import os
+import uuid
 
 # local configuration
 data_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..', 'data')
 data_path_remote = os.path.join(data_path, 'remote')
+data_path_local = os.path.join(data_path, 'app')
 data_path_static = os.path.join(data_path, 'static')
 
 
@@ -26,7 +28,12 @@ def load_csv_file(loc_type, name):
 	Warning:
 		Behavior when loading data from a location that does not contain valid CSV data is unspecified.
 	"""
-	path = data_path_remote if (loc_type == 'remote') else data_path_static
+	if loc_type == 'remote':
+		path = data_path_remote
+	elif loc_type == 'local':
+		path = data_path_local
+	else:
+		path = data_path_static
 
 	# TODO: Properly deal with files that don't exist
 	with open(os.path.join(path, name), 'r', encoding='utf-8') as f:
@@ -49,14 +56,21 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 			Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	data = collections.defaultdict(dict)
-	all_value_names = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio']
+	all_value_names = ['baseline', 'first_published', 'name_en', 'Timeliness', 'Forward looking', 'Comprehensive', 'Coverage', 'humanitarian', 'humanitarian_spend_reference', 'humanitarian_spend_iati', 'spend_ratio', 'baseline']
 
 	# parse the static base info about publishers
 	for row in base_info:
 		registry_id = row['registry_id']
-		stats = ['baseline', 'first_published', 'name_en']
+		# create a fake registry ID for those who are not yet publishing so that they are displayed as a row in the table
+		if len(registry_id.strip()) is 0:
+			registry_id = uuid.uuid4()
+      
+		stats = ['first_published', 'name_en', 'baseline']
 		for stat in stats:
-			data[registry_id][stat] = row[stat]
+			try:
+				data[registry_id][stat] = row[stat]
+			except KeyError:
+				data[registry_id][stat] = 0
 
 	# parse the summary statistics
 	for row in summary_stats:
@@ -76,11 +90,6 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 
 	# deal with values not gained from CSV files
 	for registry_id in data.keys():
-		# until real baseline data is available, use a RNG
-		# TODO: Use real baseline numbers
-		import random
-		data[registry_id]['baseline'] = str(random.randint(0, 100))
-
     	# set various coverage values to zero
 		data[registry_id]['humanitarian_spend_reference'] = 0
 		data[registry_id]['humanitarian_spend_iati'] = 0
@@ -95,11 +104,11 @@ def publisherify_data(base_info, summary_stats, humanitarian_stats):
 
 	# calculate summary total value
 	for registry_id in data.keys():
-		high_total= int(data[registry_id]['Timeliness']) + int(data[registry_id]['Forward looking']) + int(data[registry_id]['Comprehensive']) + int(data[registry_id]['humanitarian'])
-		data[registry_id]['summary_total'] = round(high_total / 4)
+		high_total= (float(data[registry_id]['Timeliness']) * 0.25) + (float(data[registry_id]['Forward looking']) * 0.1) + (float(data[registry_id]['Comprehensive']) * 0.25) + (float(data[registry_id]['humanitarian_coverage_total']) * 0.15) + (float(data[registry_id]['humanitarian']) * 0.25)
+		data[registry_id]['summary_total'] = high_total
 
 		# progress
-		data[registry_id]['progress'] = data[registry_id]['summary_total'] - int(data[registry_id]['baseline'])
+		data[registry_id]['progress'] = data[registry_id]['summary_total'] - float(data[registry_id]['baseline'])
 
 	return data
 
@@ -113,7 +122,7 @@ def load_and_format_data():
 			Keys at the second level are names of statistics parsed from data file headers.
 	"""
 	base_info = load_csv_file('static', 'base_info.csv')
-	summary_stats = load_csv_file('remote', 'summary_stats.csv')
+	summary_stats = load_csv_file('local', 'summary_stats.csv')
 	humanitarian_stats = load_csv_file('remote', 'humanitarian.csv')
 	data_by_publisher = publisherify_data(base_info, summary_stats, humanitarian_stats)
 
