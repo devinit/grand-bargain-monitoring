@@ -10,7 +10,7 @@
         dest: /var/www/grand-bargain-monitoring
         force: yes
         update: yes
-        version: deployment-integrated
+        version: master
       notify: restart apache
 
     # create directory to store remote data in
