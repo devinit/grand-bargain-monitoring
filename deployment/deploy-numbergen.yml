@@ -1,0 +1,168 @@
+---
+- hosts: integrated-server
+  remote_user: root
+  become: yes
+  become_method: su
+  become_user: numbergen
+
+  tasks:
+    #
+    # STATS
+    #
+    # clone, set-up and configure IATI-Stats fork
+    - name: clone devinit/gbm-IATI-Stats git repository
+      git:
+        repo: https://github.com/devinit/gbm-IATI-Stats.git
+        dest: /home/numbergen/gbm-IATI-Stats
+        update: yes
+        version: humanitarian-only
+
+    # install requirements
+    - name: install pip requirements
+      pip:
+        requirements: /home/numbergen/gbm-IATI-Stats/requirements.txt
+        virtualenv: /home/numbergen/gbm-IATI-Stats/pyenv
+        virtualenv_python: python2.7
+        virtualenv_site_packages: no
+
+    # clone Rulesets
+    - name: clone IATI/IATI-Rulesets git repository
+      git:
+        repo: https://github.com/IATI/IATI-Rulesets.git
+        dest: /home/numbergen/gbm-IATI-Stats/helpers/IATI-Rulesets
+        update: yes
+
+    # link Rulesets to correct location
+    - name: link Rulesets into helpers
+      file:
+        src: /home/numbergen/gbm-IATI-Stats/helpers/IATI-Rulesets/rulesets
+        dest: /home/numbergen/gbm-IATI-Stats/helpers/rulesets
+        owner: numbergen
+        state: link
+
+    # run setup scripts
+    - name: get codelist mapping
+      command: bash get_codelist_mapping.sh
+      args:
+        chdir: /home/numbergen/gbm-IATI-Stats/helpers/
+
+    - name: get codelists
+      command: bash get_codelists.sh
+      args:
+        chdir: /home/numbergen/gbm-IATI-Stats/helpers/
+
+    - name: get schemas
+      command: bash get_schemas.sh
+      args:
+        chdir: /home/numbergen/gbm-IATI-Stats/helpers/
+
+    # download data files
+    - name: download ckan.json
+      get_url:
+        url: http://dashboard.iatistandard.org/stats/ckan.json
+        dest: /home/numbergen/gbm-IATI-Stats/helpers/ckan.json
+        mode: 0440
+
+    - name: download registry_id_relationships.csv
+      get_url:
+        url: https://raw.githubusercontent.com/IATI/IATI-Dashboard/live/registry_id_relationships.csv
+        dest: /home/numbergen/gbm-IATI-Stats/helpers/registry_id_relationships.csv
+        mode: 0440
+
+    # extract historical values calculated for timeliness purposes
+    - name: ensure gitout directory exists
+      file:
+        path: /home/numbergen/gbm-IATI-Stats/gitout
+        state: directory
+
+
+    - name: extract timeliness values
+      unarchive:
+        src: /var/www/grand-bargain-monitoring/gitaggregate-publisher-dated-historical.tar.gz
+        dest: /home/numbergen/gbm-IATI-Stats/gitout
+        remote_src: true
+
+    - name: copy timeliness values to desired location
+      command: mv -n /home/numbergen/gbm-IATI-Stats/gitout/gitaggregate-publisher-dated-historical/ /home/numbergen/gbm-IATI-Stats/gitout/gitaggregate-publisher-dated/
+
+    #
+    # DASH
+    #
+    # clone, set-up and configure IATI-Dashboard fork
+    - name: clone Dashboard git repository
+      git:
+        repo: https://github.com/devinit/gbm-IATI-Dashboard.git
+        dest: /home/numbergen/gbm-IATI-Dashboard
+        update: yes
+        version: stop-after-csv-gen
+        force: true
+
+    # install requirements
+    - name: install pip requirements
+      pip:
+        requirements: /home/numbergen/gbm-IATI-Dashboard/requirements.txt
+        virtualenv: /home/numbergen/gbm-IATI-Dashboard/pyenv
+        virtualenv_python: python2.7
+        virtualenv_site_packages: no
+
+    # ensure required folders exist under Stats
+    - name: ensure stats-blacklist directory exists
+      file:
+        path: /home/numbergen/gbm-IATI-Stats/stats-blacklist
+        state: directory
+
+    - name: ensure stats gitout directory exists
+      file:
+        path: /home/numbergen/gbm-IATI-Stats/gitout
+        state: directory
+
+    # link to stats
+    - name: link stats blacklist to Dashboard
+      file:
+        src: /home/numbergen/gbm-IATI-Stats/stats-blacklist
+        dest: /home/numbergen/gbm-IATI-Dashboard/stats-blacklist
+        owner: numbergen
+        state: link
+
+    - name: link generated stats to Dashboard
+      file:
+        src: /home/numbergen/gbm-IATI-Stats/gitout
+        dest: /home/numbergen/gbm-IATI-Dashboard/stats-calculated
+        owner: numbergen
+        state: link
+
+    #
+    # DATA
+    #
+    # clone historical data
+    - name: clone data repository
+      git:
+        repo: git://dashboard.iatistandard.org/IATI-Data-Snapshot.git
+        dest: /home/numbergen/gbm-IATI-Stats/data
+        update: yes
+        version: automatic
+
+    #
+    # CRON
+    #
+    - name: ensure logs directory exists
+      file:
+        path: /home/numbergen/logs
+        state: directory
+
+    # prevent numbergen script running as root
+    - name: copy script to have the desired owner
+      copy:
+        remote_src: true
+        src: /var/www/grand-bargain-monitoring/deployment/cron-scripts/generate-numbers.sh
+        dest: /home/numbergen/generate-numbers.sh
+        owner: numbergen
+        mode: 0755
+
+    # add script to run on ongoing basis
+    - name: set up cron to update scores
+      cron:
+        name: "update scores"
+        minute: "0"
+        hour: "8"
+        job: "/home/numbergen/generate-numbers.sh > /home/numbergen/logs/$(date -I)-generatenumbers.log 2>&1"

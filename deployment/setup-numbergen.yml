@@ -1,0 +1,120 @@
+---
+- hosts: integrated-server
+  remote_user: root
+
+  tasks:
+    #
+    # GENERAL
+    #
+    # user-related actions
+    - name: Create non-root account
+      user:
+        name: numbergen
+        comment: "Number Generation Account"
+        createhome: yes
+
+    # software installation
+    - name: Update apt caches
+      apt:
+        update_cache: yes
+
+    #
+    # STATS
+    #
+    - name: Install git
+      apt:
+        name: git
+        state: present
+
+    - name: Install gcc
+      apt:
+        name: gcc
+        state: present
+
+    - name: Install python dev
+      apt:
+        name: python-dev
+        state: present
+
+    - name: Install python virtualenv
+      apt:
+        name: python-virtualenv
+        state: present
+
+    - name: Install pip
+      apt:
+        name: python-pip
+        state: present
+
+    - name: Install libxml2-dev
+      apt:
+        name: libxml2-dev
+        state: present
+
+    - name: Install libxslt-dev
+      apt:
+        name: libxslt-dev
+        state: present
+
+    - name: Install lib32z1-dev
+      apt:
+        name: lib32z1-dev
+        state: present
+
+    #
+    # DASH
+    #
+    - name: Install wget
+      apt:
+        name: wget
+        state: present
+
+    - name: Install curl
+      apt:
+        name: curl
+        state: present
+
+    - name: Install git
+      apt:
+        name: git
+        state: present
+
+    - name: Install python 2.7
+      apt:
+        name: python2.7
+        state: present
+
+    - name: Install python-dev
+      apt:
+        name: python-dev
+        state: present
+
+    - name: Install virtualenv
+      apt:
+        name: virtualenv
+        state: present
+
+    - name: Install gcc
+      apt:
+        name: gcc
+        state: present
+
+    - name: Install dev files for libfreetype6
+      apt:
+        name: libfreetype6-dev
+        state: present
+
+    - name: Install dev files for libpng
+      apt:
+        name: libpng-dev
+        state: present
+
+    - name: Install dev files for libxml2
+      apt:
+        name: libxml2-dev
+        state: present
+
+    - name: Install dev files for libxslt
+      apt:
+        name: libxslt-dev
+        state: present
