@@ -1,5 +1,5 @@
 ---
-- hosts: integrated-server
+- hosts: gbm-live
   remote_user: root
 
   tasks:
