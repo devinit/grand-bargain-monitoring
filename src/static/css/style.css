@@ -1,3 +1,16 @@
+@font-face {
+    font-family: 'geomanist';
+    src: url(../fonts/geomanist-bold-webfont.eot);
+    src: url(../fonts/geomanist-bold-webfont.eot?#iefix) format('embedded-opentype'),
+         url(../fonts/geomanist-bold-webfont.woff2) format('woff2'),
+         url(../fonts/geomanist-bold-webfont.woff) format('woff'),
+         url(../fonts/geomanist-bold-webfont.ttf) format('truetype'),
+         url(../fonts/geomanist-bold-webfont.svg#geomanistregular) format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
 body {
 	padding: 3em 5% 5% 5%;
 }
@@ -9,4 +22,9 @@ body {
 #di-logo {
 	width: 20em;
 	margin-bottom: 1.8em;
+}
+
+h1 {
+	font-family: geomanist, Arial, sans-serif;
+	font-weight: bold;
 }
