@@ -1,7 +1,12 @@
 body {
-	padding: 5%;
+	padding: 3em 5% 5% 5%;
 }
 
 .positive-progress {
 	background-color: #0F0;
+}
+
+#di-logo {
+	width: 20em;
+	margin-bottom: 1.8em;
 }
