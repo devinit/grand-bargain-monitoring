@@ -69,12 +69,17 @@
         dest: /home/numbergen/gbm-IATI-Stats/helpers/registry_id_relationships.csv
         mode: 0440
 
+    - name: download Grand Bargain base info CSV file
+      get_url:
+        url: https://docs.google.com/spreadsheets/d/e/2PACX-1vRP3GSYvuqCLcqyhKJQMCw_wuDfIyRIKh1y1xPeTZlgSeTm1lxYmOYHo6g6hGukQqOd7eCjh3878Rcs/pub?gid=967143669&single=true&output=csv
+        dest: /home/numbergen/gbm-IATI-Stats/helpers/grand-bargain-base-info.csv
+        mode: 0440
+
     # extract historical values calculated for timeliness purposes
     - name: ensure gitout directory exists
       file:
         path: /home/numbergen/gbm-IATI-Stats/gitout
         state: directory
-
 
     - name: extract timeliness values
       unarchive:
@@ -166,3 +171,11 @@
         minute: "0"
         hour: "8"
         job: "/home/numbergen/generate-numbers.sh > /home/numbergen/logs/$(date -I)-generatenumbers.log 2>&1"
+
+    # update the Grand Bargain base info CSV file every night
+    - name: set up cron to update Grand Bargain base info CSV file
+      cron:
+        name: "update the Grand Bargain base info CSV file every night"
+        minute: "0"
+        hour: "0"
+        job: "wget https://docs.google.com/spreadsheets/d/e/2PACX-1vRP3GSYvuqCLcqyhKJQMCw_wuDfIyRIKh1y1xPeTZlgSeTm1lxYmOYHo6g6hGukQqOd7eCjh3878Rcs/pub?gid=967143669&single=true&output=csv -O /home/numbergen/gbm-IATI-Stats/helpers/grand-bargain-base-info.csv"
