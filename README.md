@@ -8,9 +8,14 @@ Installation
 This assumes a typical Python development setup is available (details on such things to be provided at some point in the future).
 
 ```
+# Set-up and activate a python3 virtual environment
 virtualenv -p python3 pyenv
 source pyenv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Create a remote directory and download remote data
 mkdir data/remote
 ./src/load_remote_data.py
 ```
