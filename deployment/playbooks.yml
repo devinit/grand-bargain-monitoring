@@ -1,5 +1,5 @@
 ---
-- hosts: integrated-server
+- hosts: gbm-live
 
 - include: setup.yml
 - include: setup-numbergen.yml
