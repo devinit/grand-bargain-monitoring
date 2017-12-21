@@ -27,3 +27,7 @@ h1 {
 	font-family: geomanist, Arial, sans-serif;
 	font-weight: bold;
 }
+
+div.dataTables_filter {
+  margin-bottom: 20px;  /* Add extra whitespace below table 'Search' box. */
+}
