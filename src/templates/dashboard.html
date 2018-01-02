@@ -28,10 +28,10 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="sort" data-sort="organisation">Organisation</th>
-					<th class="sort" data-sort="first-published">First Published</th>
-					<th class="sort" data-sort="progress">Progress</th>
-					<th class="sort" data-sort="baseline">Baseline</th>
+					<th class="sort organisation" data-sort="organisation">Organisation</th>
+					<th class="sort first-published" data-sort="first-published">First Published</th>
+					<th class="sort monitoring-progress" data-sort="monitoring-progress">Progress</th>
+					<th class="sort baseline" data-sort="baseline">Baseline</th>
 				</tr>
 			</thead>
 			<tbody class="list">
@@ -62,13 +62,13 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="sort" data-sort="organisation">Organisation</th>
-					<th class="sort" data-sort="timeliness">Timeliness</th>
-					<th class="sort" data-sort="forward-looking">Forward Looking</th>
-					<th class="sort" data-sort="comprehensive">Comprehensive</th>
-					<th class="sort" data-sort="coverage">Coverage</th>
-					<th class="sort" data-sort="humanitarian">Humanitarian</th>
-					<th class="sort" data-sort="total">Total</th>
+					<th class="sort organisation" data-sort="organisation">Organisation</th>
+					<th class="sort timeliness" data-sort="timeliness">Timeliness</th>
+					<th class="sort forward-looking" data-sort="forward-looking">Forward Looking</th>
+					<th class="sort comprehensive" data-sort="comprehensive">Comprehensive</th>
+					<th class="sort coverage" data-sort="coverage">Coverage</th>
+					<th class="sort humanitarian" data-sort="humanitarian">Humanitarian</th>
+					<th class="sort total" data-sort="total">Total</th>
 				</tr>
 			</thead>
 			<tbody class="list">
@@ -220,7 +220,19 @@ $(document).ready(function(){
 	$('.table').DataTable({
 		"order": [[ 0, "asc" ]],
 		"paging": false,
-		"fixedHeader": true
+		"fixedHeader": true,
+		"columnDefs": [
+			{ "orderable": false, "targets": [
+				"first-published",
+				"baseline",
+				"timeliness",
+				"forward-looking",
+				"comprehensive",
+				"coverage",
+				"humanitarian",
+				"total"
+			]}
+  	]
 	});
 });
 </script>
