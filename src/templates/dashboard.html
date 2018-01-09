@@ -28,10 +28,10 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="sort" data-sort="organisation" data-toggle="tooltip" data-placement="bottom" title="Name of the organisation or agency that is a signatory or a signatory affiliate of the Grand Bargain">Organisation</th>
-					<th class="sort" data-sort="first-published" data-toggle="tooltip" data-placement="bottom" title="The date when the organisation first published to IATI">First Published</th>
-					<th class="sort" data-sort="progress" data-toggle="tooltip" data-placement="bottom" title="Total (current) value minus Baseline value">Progress</th>
-					<th class="sort" data-sort="baseline" data-toggle="tooltip" data-placement="bottom" title="Total value at 1 June 2017">Baseline</th>
+					<th class="sort organisation" data-sort="organisation" data-toggle="tooltip" data-placement="bottom" title="Name of the organisation or agency that is a signatory or a signatory affiliate of the Grand Bargain">Organisation</th>
+					<th class="sort first-published" data-sort="first-published" data-toggle="tooltip" data-placement="bottom" title="The date when the organisation first published to IATI">First Published</th>
+					<th class="sort monitoring-progress" data-sort="progress" data-toggle="tooltip" data-placement="bottom" title="Total (current) value minus Baseline value">Progress</th>
+					<th class="sort baseline" data-sort="baseline" data-toggle="tooltip" data-placement="bottom" title="Total value at 1 June 2017">Baseline</th>
 				</tr>
 			</thead>
 			<tbody class="list">
@@ -62,13 +62,13 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="sort" data-sort="organisation" data-toggle="tooltip" data-placement="bottom" title="Name of the organisation or agency that is a signatory or a signatory affiliate of the Grand Bargain">Organisation</th>
-					<th class="sort" data-sort="timeliness" data-toggle="tooltip" data-placement="bottom" title="How often does the organisation update its data (% value)?">Timeliness</th>
-					<th class="sort" data-sort="forward-looking" data-toggle="tooltip" data-placement="bottom" title="How many of the organisation's current projects or interventions include annual planned financial flows ie activity budgets (% value)?">Forward Looking</th>
-					<th class="sort" data-sort="comprehensive" data-toggle="tooltip" data-placement="bottom" title="How many of the IATI fields that most data users want to see are being published by the organisation for its current activities (% value)?">Comprehensive</th>
-					<th class="sort" data-sort="coverage" data-toggle="tooltip" data-placement="bottom" title="How much of its total operational portfolio is the organisation publishing information to IATI about (% value)?">Coverage</th>
-					<th class="sort" data-sort="humanitarian" data-toggle="tooltip" data-placement="bottom" title="How many of the organisation's published current activities contain specific humanitarian-related information eg which emergency(s), appeals, clusters etc.">Humanitarian</th>
-					<th class="sort" data-sort="total" data-toggle="tooltip" data-placement="bottom" title="Aggregated assessment value average which combines the  percentage values for all five measures (1. Timeliness, 2. Forward Looking, 3. Comprehensive, 4. Coverage, 5. Humanitarian - see 'Details' tab)">Total</th>
+					<th class="sort organisation" data-sort="organisation" data-toggle="tooltip" data-placement="bottom" title="Name of the organisation or agency that is a signatory or a signatory affiliate of the Grand Bargain">Organisation</th>
+					<th class="sort timeliness" data-sort="timeliness" data-toggle="tooltip" data-placement="bottom" title="How often does the organisation update its data (% value)?">Timeliness</th>
+					<th class="sort forward-looking" data-sort="forward-looking" data-toggle="tooltip" data-placement="bottom" title="How many of the organisation's current projects or interventions include annual planned financial flows ie activity budgets (% value)?">Forward Looking</th>
+					<th class="sort comprehensive" data-sort="comprehensive" data-toggle="tooltip" data-placement="bottom" title="How many of the IATI fields that most data users want to see are being published by the organisation for its current activities (% value)?">Comprehensive</th>
+					<th class="sort coverage" data-sort="coverage" data-toggle="tooltip" data-placement="bottom" title="How much of its total operational portfolio is the organisation publishing information to IATI about (% value)?">Coverage</th>
+					<th class="sort humanitarian" data-sort="humanitarian" data-toggle="tooltip" data-placement="bottom" title="How many of the organisation's published current activities contain specific humanitarian-related information eg which emergency(s), appeals, clusters etc.">Humanitarian</th>
+					<th class="sort total" data-sort="total" data-toggle="tooltip" data-placement="bottom" title="Aggregated assessment value average which combines the  percentage values for all five measures (1. Timeliness, 2. Forward Looking, 3. Comprehensive, 4. Coverage, 5. Humanitarian - see 'Details' tab)">Total</th>
 				</tr>
 			</thead>
 			<tbody class="list">
@@ -222,7 +222,19 @@ $(document).ready(function(){
 	$('.table').DataTable({
 		"order": [[ 0, "asc" ]],
 		"paging": false,
-		"fixedHeader": true
+		"fixedHeader": true,
+		"columnDefs": [
+			{ "orderable": false, "targets": [
+				"first-published",
+				"baseline",
+				"timeliness",
+				"forward-looking",
+				"comprehensive",
+				"coverage",
+				"humanitarian",
+				"total"
+			]}
+  	]
 	});
 });
 </script>
