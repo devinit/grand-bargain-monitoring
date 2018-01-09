@@ -13,7 +13,7 @@
 
 		<h2></h2>
 
-		<p>This bespoke dashboard was developed by <a href="http://devinit.org/">Development Initiatives</a> (DI) to support the Grand Bargain <a href="https://interagencystandingcommittee.org/greater-transparency">workstream on transparency</a> in taking forward commitments made by signatories at the World Humanitarian Summit 2016. It is part of the project <strong>Monitoring the Grand Bargain commitment on transparency</strong>. The dashboard is based on a framework and methodology for measuring the quality of humanitarian data published to IATI which is proposed in DI’s baseline report, <strong>Implementing and monitoring the Grand Bargain commitment on transparency</strong>, and subject to final approval.</p>
+		<p>This bespoke dashboard was developed by <a href="http://devinit.org/">Development Initiatives</a> (DI) to support the Grand Bargain <a href="https://interagencystandingcommittee.org/greater-transparency">workstream on transparency</a> in taking forward commitments made by signatories at the World Humanitarian Summit 2016. It is part of the project <strong>Monitoring the Grand Bargain commitment on transparency</strong>. The dashboard is based on a framework and methodology for measuring the quality of humanitarian data published to IATI which is proposed in DI’s baseline report, <strong><a href="http://devinit.org/post/baseline-report-implementing-and-monitoring-the-grand-bargain-commitment-on-transparency/#">Implementing and monitoring the Grand Bargain commitment on transparency</a></strong>, and subject to final approval.</p>
 
 		<p>It is a tool that enables <a href="http://www.agendaforhumanity.org/initiatives/3861">Grand Bargain signatories</a> to:</p>
 			<ol>
@@ -28,10 +28,10 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="sort organisation" data-sort="organisation">Organisation</th>
-					<th class="sort first-published" data-sort="first-published">First Published</th>
-					<th class="sort monitoring-progress" data-sort="monitoring-progress">Progress</th>
-					<th class="sort baseline" data-sort="baseline">Baseline</th>
+					<th class="sort organisation" data-sort="organisation" data-toggle="tooltip" data-placement="bottom" title="Name of the organisation or agency that is a signatory or a signatory affiliate of the Grand Bargain">Organisation</th>
+					<th class="sort first-published" data-sort="first-published" data-toggle="tooltip" data-placement="bottom" title="The date when the organisation first published to IATI">First Published</th>
+					<th class="sort monitoring-progress" data-sort="progress" data-toggle="tooltip" data-placement="bottom" title="Total (current) value minus Baseline value">Progress</th>
+					<th class="sort baseline" data-sort="baseline" data-toggle="tooltip" data-placement="bottom" title="Total value at 1 June 2017">Baseline</th>
 				</tr>
 			</thead>
 			<tbody class="list">
@@ -62,13 +62,13 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="sort organisation" data-sort="organisation">Organisation</th>
-					<th class="sort timeliness" data-sort="timeliness">Timeliness</th>
-					<th class="sort forward-looking" data-sort="forward-looking">Forward Looking</th>
-					<th class="sort comprehensive" data-sort="comprehensive">Comprehensive</th>
-					<th class="sort coverage" data-sort="coverage">Coverage</th>
-					<th class="sort humanitarian" data-sort="humanitarian">Humanitarian</th>
-					<th class="sort total" data-sort="total">Total</th>
+					<th class="sort organisation" data-sort="organisation" data-toggle="tooltip" data-placement="bottom" title="Name of the organisation or agency that is a signatory or a signatory affiliate of the Grand Bargain">Organisation</th>
+					<th class="sort timeliness" data-sort="timeliness" data-toggle="tooltip" data-placement="bottom" title="How often does the organisation update its data (% value)?">Timeliness</th>
+					<th class="sort forward-looking" data-sort="forward-looking" data-toggle="tooltip" data-placement="bottom" title="How many of the organisation's current projects or interventions include annual planned financial flows ie activity budgets (% value)?">Forward Looking</th>
+					<th class="sort comprehensive" data-sort="comprehensive" data-toggle="tooltip" data-placement="bottom" title="How many of the IATI fields that most data users want to see are being published by the organisation for its current activities (% value)?">Comprehensive</th>
+					<th class="sort coverage" data-sort="coverage" data-toggle="tooltip" data-placement="bottom" title="How much of its total operational portfolio is the organisation publishing information to IATI about (% value)?">Coverage</th>
+					<th class="sort humanitarian" data-sort="humanitarian" data-toggle="tooltip" data-placement="bottom" title="How many of the organisation's published current activities contain specific humanitarian-related information eg which emergency(s), appeals, clusters etc.">Humanitarian</th>
+					<th class="sort total" data-sort="total" data-toggle="tooltip" data-placement="bottom" title="Aggregated assessment value average which combines the  percentage values for all five measures (1. Timeliness, 2. Forward Looking, 3. Comprehensive, 4. Coverage, 5. Humanitarian - see 'Details' tab)">Total</th>
 				</tr>
 			</thead>
 			<tbody class="list">
@@ -171,10 +171,10 @@
 		<p>
 			<strong>Baseline:</strong> the total value for each Grand Bargain signatory organisation as of 1 June 2017.<br/>
 			<strong>Total:</strong> the total value for each Grand Bargain signatory organisation at that point in time.<br/>
-			<strong>Progress:</strong> the difference between the organisation’s <strong>total</strong> and <strong>baseline</strong> value. Any value greater than zero is coloured green.
+			<strong>Progress:</strong> the difference between the organisation's <strong>total</strong> and <strong>baseline</strong> value. Any value greater than zero is coloured green.
 		</p>
 
-		<p>An organisation’s data will be classed as <strong>humanitarian</strong> if either of the following apply:</p>
+		<p>An organisation's data will be classed as <strong>humanitarian</strong> if either of the following apply:</p>
 		<ul>
 			<li>The activity includes a <a href="http://iatistandard.org/202/activity-standard/iati-activities/iati-activity/sector/">DAC sector code</a> in the range 72010 to 74010.</li>
 			<li>The <a href="http://iatistandard.org/202/activity-standard/iati-activities/iati-activity/">activity humanitarian attribute</a> is set. (Note that the humanitarian attribute is only available to publishers using V2.02 or later of the IATI Standard.)</li>
@@ -182,7 +182,7 @@
 
 		<h2>Meeting the commitment</h2>
 
-		<p>An organisation’s overall assessment is based on the total value by quintile ratings in accordance with the table below. If a signatory organisation has met the Grand Bargain transparency commitment, it achieves an assessment of ‘good’ (60–79%) or above.</p>
+		<p>An organisation's overall assessment is based on the total value by quintile ratings in accordance with the table below. If a signatory organisation has met the Grand Bargain transparency commitment, it achieves an assessment of ‘good’ (60–79%) or above.</p>
 
 		<table class="table table-bordered table-hover">
 			<tr>
@@ -214,6 +214,8 @@
 	</div>
 </div>
 
+<script src="static/js/popper.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
 <script src="static/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -235,5 +237,10 @@ $(document).ready(function(){
   	]
 	});
 });
+</script>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip({container: 'body'})
+})
 </script>
 {% endblock %}
