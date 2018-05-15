@@ -1,6 +1,6 @@
 name_en,first_published,org_type,registry_id,baseline
-ActionAid International,2013-03-28, International NGO,aai,
-ActionAId UK, 2013-06-18, International NGO,aauk,
+ActionAid International,2013-03-28, International NGO,aai,6
+ActionAId UK, 2013-06-18, International NGO,aauk,12.25
 Australia - Department of Foreign Affairs and Trade (DFAT),2011-09-02,Government,ausgov,37.5
 Belgian Development Cooperation,2014-12-15,Government,be-dgd,23.95
 British Red Cross,2012-08-16,International NGO,gb-chc-220949,39.5
@@ -18,7 +18,7 @@ Czech Republic - Czech Development Agency,,Government,,0
 Estonia,,Government,,0
 European Commission (EC) - DG Humanitarian Aid and Civil Protection (ECHO),2013-09-26,Other Public Sector,ec-echo,64.1
 Finland - Ministry of Foreign Affairs,2011-11-25,Government,finland_mfa,36.15
-France - Ministry for Europe and Foreign Affairs,2014-07-01,Government,france,
+France - Ministry for Europe and Foreign Affairs,2014-07-01,Government,france,56.5
 Food and Agriculture Organization of the United Nations (FAO),2017-05-03,Multilateral,fao,35.6
 Germany - Federal Ministry for Economic Cooperation and Development (BMZ),2013-03-28,Government,bmz,41.75
 Global Communities,,International NGO,,0
@@ -36,11 +36,11 @@ Luxembourg,,Government,,0
 Mercy Corps Europe,2012-07-02,International NGO,mce,0
 Netherlands - Ministry of Foreign Affairs,2011-09-19,Government,minbuza_nl,54.15
 Netherlands Red Cross,2016-04-29,International NGO,nlrc,44
-New Zealand - Ministry of Foreign Affairs and Trade - New Zealand Aid Programme,2013-06-31,Government,mfat,
+New Zealand - Ministry of Foreign Affairs and Trade - New Zealand Aid Programme,2013-06-31,Government,mfat,27.85
 Norad - Norwegian Agency for Development Cooperation,2015-12-18,Government,norad,26.6
 Norway - Ministry of Foreign Affairs,,Government,,0
 Norwegian Refugee Council (NRC),2013-03-08,International NGO,nrc,34
-OCHA Country BAsed Pooled Funds,2018-02-20,Multilateral,unocha-cbpf
+OCHA Country BAsed Pooled Funds,2018-02-20,Multilateral,unocha-cbpf,0
 Oxfam GB,2012-08-08,International NGO,oxfamgb,0
 Oxfam IBIS,2016-04-27,International NGO,ibis_denmark,0
 Oxfam India,2013-09-24,National NGO,oxfamindia,0
@@ -71,4 +71,4 @@ World Vision International (WVI),2015-10-16,International NGO,wvi,6.25
 World Vision Netherlands,2016-06-20,National NGO,wvnld,3.25
 World Vision UK,2012-06-13,International NGO,wvuk,22
 World Vision Zimbabwe,2017-12-05,International NGO,wvz-gec,0
-ZOA,2016-02-10,International NGO,zoa,0
+ZOA,2016-02-10,International NGO,zoa,9.25
