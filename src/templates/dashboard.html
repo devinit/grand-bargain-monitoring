@@ -56,7 +56,7 @@
 					<td class="comprehensive pc-{{ data[k]['Forward looking'] }}">{{ data[k]['Forward looking'] if data[k]['Forward looking'] != '' else '0' }}</td>
 					<td class="forward-looking pc-{{ data[k]['Comprehensive'] }}">{{ data[k]['Comprehensive'] if data[k]['Comprehensive'] != '' else '0' }}</td>
 					<td class="coverage pc-{{ data[k]['humanitarian_coverage_total'] }}">{{ data[k]['humanitarian_coverage_total'] if data[k]['humanitarian_coverage_total'] else '0' }}</td>
-					<td class="humanitarian pc-{{ data[k]['humanitarian'] }}">{{ data[k]['humanitarian'] if data[k]['humanitarian'] != '' else '0' }}</td>
+					<td class="humanitarian pc-{{ data[k]['humanitarian'] }}">{{ data[k]['humanitarian']|float|round(2) if data[k]['humanitarian'] != '' else '0' }}</td>
 					<td class="summary-total">{{ data[k]['summary_total']|round(2) if data[k]['summary_total'] != '' else '0' }}</td>
 					<td class="{{ 'positive-progress' if data[k]['progress'] > 0 }}">{{ data[k]['progress']|round(2) if data[k]['progress'] != '' else '0' }}</td>
 					<td class="baseline">{{ data[k]['baseline'] if data[k]['baseline'] != '' else '0' }}</td>
