@@ -1,11 +1,13 @@
 name_en,first_published,org_type,registry_id,baseline
 ActionAid International,2013-03-28, International NGO,aai,0
+ActionAid Rwanda,2018-12-20, International NGO,aar,0
 ActionAId UK, 2013-06-18, International NGO,aauk,6.25
 Australia - Department of Foreign Affairs and Trade (DFAT),2011-09-02,Government,ausgov,37.5
 Belgian Development Cooperation,2014-12-15,Government,be-dgd,23.95
 British Red Cross,2012-08-16,International NGO,gb-chc-220949,39.5
 Bulgaria,,Government,,0
 Canada - Global Affairs Canada | Affaires mondiales Canada,2012-10-31,Government,gac-amc,53.45
+CARE Danmark,2018-12-17,International NGO,12921047,0
 CARE International in Zimbabwe,2017-12-08,International NGO,ciz,0
 CARE International UK,2012-10-29,International NGO,ciuk,38
 CARE Nederland,2016-04-28,International NGO,carenederland,0
@@ -14,7 +16,7 @@ Catholic Relief Services (CRS),2015-04-09,International NGO,crs_vyf,0
 Christian Aid,2013-01-09,International NGO,caid,40.25
 Christian Aid Ireland,2016-07-01,International NGO,caid_ireland,3.25
 Czech Republic - Czech Development Agency,,Government,,0
-"Denmark - Ministry of Foreign Affairs, Danida",2012-12-21,Government,danida,45
+Denmark - Ministry of Foreign Affairs,2012-12-21,Government,danida,45
 Estonia,,Government,,0
 European Commission (EC) - DG Humanitarian Aid and Civil Protection (ECHO),2013-09-26,Other Public Sector,ec-echo,64.1
 Finland - Ministry of Foreign Affairs,2011-11-25,Government,finland_mfa,36.15
@@ -50,6 +52,7 @@ Oxfam Solidarité-Solidariteit,2018-04-30,International NGO,oxsol,0
 Oxfam Wereldwinkels,2018-04-30,International NGO,oww,0
 Oxfam Magasins Du Monde (OMDM),2018-04-26,International NGO,omdm,0
 Red Cross Red Crescent Climate Centre,2016-05-03,International NGO,climate_centre,0
+Save The Children DK,2018-12-20,International NGO,redbarnet,0
 Save The Children International,2017-12-14,International NGO,sci,0
 Save The Children Netherlands,2016-04-29,International NGO,scnl,42.95
 Save The Children UK,2014-07-25,International NGO,scuk,42.15
@@ -59,7 +62,7 @@ Slovenia Ministry Of Foreign Affairs,,Government,,0
 Spain - Ministry of Foreign Affairs and Cooperation,2011-11-17,Government,maec,29
 Sweden - Swedish International Development Cooperation Agency (Sida),2011-11-11,Government,sida,55.05
 Switzerland - Swiss Agency for Development and Cooperation (SDC),2013-11-11,Government,sdc_ch,22.5
-Syria Relief Turkey,,International NGO,,0
+Syria Relief,2019-02-07,International NGO,sr,0
 UK - Department for International Development (DFID),2011-01-29,Government,dfid,54.2
 UK - Foreign and Commonwealth Office (FCO),2013-07-08,Government,fco,32.25
 United Nations Central Emergency Response Fund (CERF),2016-02-09,Multilateral,cerf,51.5
@@ -67,6 +70,7 @@ United Nations Children's Fund (UNICEF),2013-06-07,Multilateral,unicef,57.1
 United Nations Development Programme (UNDP),2011-11-22,Multilateral,undp,56.35
 United Nations High Commissioner for Refugees (UNHCR),2018-09-04,Multilateral,unhcr,0
 United Nations Office for the Coordination of Humanitarian Affairs (OCHA),2014-06-26,Multilateral,unocha,0
+United Nations Office for the Coordination of Humanitarian Affairs (Specially-Designated Contributions),2018-08-17,Multilateral,unocha-sdc,0
 United Nations Population Fund (UNFPA),2013-07-02,Multilateral,unfpa,51.75
 United Nations Relief and Works Agency for Palestine Refugees (UNRWA),,Multilateral,,0
 United Nations Women (UN Women),2012-11-20,Multilateral,unw,0
