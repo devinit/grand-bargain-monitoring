@@ -31,7 +31,7 @@ Deployment is undertaken using ansible.
 ```
 # follow instructions at http://docs.ansible.com/ansible/intro_installation.html
 # check that ansible is working by pinging the server
-ansible gbm -i deployment/inventory.ini -m ping
+ansible gbm-live -i deployment/inventory.ini -m ping
 ```
 
 *NOTE:* You must have ssh access to hosts specified in `inventory.ini` for this to work. This file may be modified to change the specified servers.
