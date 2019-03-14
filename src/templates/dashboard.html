@@ -3,6 +3,7 @@
 
 <ul class="nav nav-tabs" role="tablist">
 	<li role="presentation" class="active"><a href="#summary-tab" aria-controls="summary" role="tab" data-toggle="tab">Summary</a></li>
+	<li role="presentation"><a href="#details-tab" aria-controls="details" role="tab" data-toggle="tab">Details</a></li>
 	<li role="presentation"><a href="#methodology-tab" aria-controls="data-use" role="tab" data-toggle="tab">Methodology</a></li>
 </ul>
 
@@ -11,32 +12,28 @@
 	<div role="tabpanel" class="tab-pane active" id="summary-tab">
 
 		<h2></h2>
+		
+		<p>In the <a href="https://interagencystandingcommittee.org/grand-bargain-hosted-iasc">Grand Bargain</a> donors and aid organisations committed to strengthening the transparency of the humanitarian system. As a first step, they agreed to publish timely, transparent, harmonized and open high-quality data on humanitarian funding within two years of the 2016 World Humanitarian Summit and identified the <a href="https://www.aidtransparency.net/">International Aid Transparency Initiative (IATI)</a> Standard as the best way to do this.</p>
 
-		<p>This bespoke dashboard was developed by <a href="http://devinit.org/">Development Initiatives</a> (DI) to support the Grand Bargain <a href="https://interagencystandingcommittee.org/greater-transparency">workstream on transparency</a> in taking forward commitments made by signatories at the World Humanitarian Summit 2016. It is part of the project <strong>Monitoring the Grand Bargain commitment on transparency</strong>. The dashboard is based on a framework and methodology for measuring the quality of humanitarian data published to IATI which is proposed in DI’s baseline report, <strong>Implementing and monitoring the Grand Bargain commitment on transparency</strong>, and subject to final approval.</p>
-
-		<p>It is a tool that enables <a href="http://www.agendaforhumanity.org/initiatives/3861">Grand Bargain signatories</a> to:</p>
+		<p>The Grand Bargain transparency dashboard is a public online tool, developed by <a href="http://devinit.org/">Development Initiatives</a> (DI). It enables Grand Bargain signatories to:</p>
 			<ol>
 				<li>Check the quality of their humanitarian data published to the <a href="http://www.aidtransparency.net/">International Aid Transparency Initiative</a> (IATI) Standard and identify areas requiring improvement.</li>
 				<li>Assess their progress in meeting the <a href="https://interagencystandingcommittee.org/grand-bargain-hosted-iasc">commitment</a> to publish timely, high-quality, harmonised and transparent data on humanitarian funding.</li>
 			</ol>
 
-		<p>The dashboard is currently in beta version and is updated on a daily basis. It uses the data that organisations publish to the <a href="http://iatistandard.org/">IATI Standard</a> on the <a href="https://www.iatiregistry.org/">IATI Registry</a>.</p>
+		<p>This page shows the date when the organisation first published to IATI and measures the progress they are making in meeting the Grand Bargain transparency commitment according to the monitoring methodology (see methodology tab). Any value greater than zero is coloured green and shows that an organisation’s data quality has improved compared with their Baseline value as of 1 June 2017 (in most cases). The higher the figure the more progress an organisation is making at that given point in time. </p>
 
+		<p>For details on how these values are calculated hover over column headings for a brief description or see the methodology tab.</p>
+		
 		<p>We welcome your feedback. Please send any comments or questions to Liz Steele at <a href="mailto:liz.steele@devinit.org">liz.steele@devinit.org</a>.</p>
 
 		<table class="table">
 			<thead>
 				<tr>
-					<th class="sort" data-sort="organisation">Organisation</th>
-					<th class="sort" data-sort="first-published">First Published</th>
-					<th class="sort" data-sort="timeliness">Timeliness</th>
-					<th class="sort" data-sort="forward-looking">Forward Looking</th>
-					<th class="sort" data-sort="comprehensive">Comprehensive</th>
-					<th class="sort" data-sort="coverage">Coverage</th>
-					<th class="sort" data-sort="humanitarian">Humanitarian</th>
-					<th class="sort" data-sort="total">Total</th>
-					<th class="sort" data-sort="progress">Progress</th>
-					<th class="sort" data-sort="baseline">Baseline</th>
+					<th class="sort organisation" data-sort="organisation" data-toggle="tooltip" data-placement="bottom" title="Name of the organisation or agency that is a signatory or a signatory affiliate of the Grand Bargain">Organisation</th>
+					<th class="sort first-published" data-sort="first-published" data-toggle="tooltip" data-placement="bottom" title="The date when the organisation first published to IATI">First Published</th>
+					<th class="sort monitoring-progress" data-sort="progress" data-toggle="tooltip" data-placement="bottom" title="Total (current) value minus Baseline value">Progress</th>
+					<th class="sort baseline" data-sort="baseline" data-toggle="tooltip" data-placement="bottom" title="Total value at 1 June 2017">Baseline</th>
 				</tr>
 			</thead>
 			<tbody class="list">
@@ -52,14 +49,58 @@
 						{% endif %}
 					</td>
 					<td class="first-published">{{ data[k]['first_published'] if (data[k]['first_published'] != '' and data[k]['first_published'] != 0) else 'Unknown' }}</td>
+					<td class="{{ 'positive-progress' if data[k]['progress'] > 0 }}">{{ data[k]['progress']|round(2) if data[k]['progress'] != '' else '0' }}</td>
+					<td class="baseline">{{ data[k]['baseline'] if data[k]['baseline'] != '' else '0' }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+	<div role="tabpanel" class="tab-pane" id="details-tab">
+		<h2></h2>
+		<p>This dashboard provides individual assessment values for the five performance measures which are used to assess the quality of humanitarian data published to IATI:</p>
+
+		<ol>
+			<li>Timeliness</li>
+			<li>Comprehensiveness</li>
+			<li>Coverage</li>
+			<li>Forward looking</li>
+			<li>Humanitarian</li>
+		</ol>
+		
+		<p>The <strong>Total</strong> column shows the current value for each organisation and is calculated based on the sum of the values for each performance measure once a percentage weighting has been applied. Please hover over column headings for a brief description and see the methodology tab for details on how each measure is assessed. </p>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="sort organisation" data-sort="organisation" data-toggle="tooltip" data-placement="bottom" title="Name of the organisation or agency that is a signatory or a signatory affiliate of the Grand Bargain">Organisation</th>
+					<th class="sort timeliness" data-sort="timeliness" data-toggle="tooltip" data-placement="bottom" title="How often does the organisation update its data (% value)?">Timeliness</th>
+					<th class="sort forward-looking" data-sort="forward-looking" data-toggle="tooltip" data-placement="bottom" title="How many of the organisation's current projects or interventions include annual planned financial flows ie activity budgets (% value)?">Forward Looking</th>
+					<th class="sort comprehensive" data-sort="comprehensive" data-toggle="tooltip" data-placement="bottom" title="How many of the IATI fields that most data users want to see are being published by the organisation for its current activities (% value)?">Comprehensive</th>
+					<th class="sort coverage" data-sort="coverage" data-toggle="tooltip" data-placement="bottom" title="How much of its total operational portfolio is the organisation publishing information to IATI about (% value)?">Coverage</th>
+					<th class="sort humanitarian" data-sort="humanitarian" data-toggle="tooltip" data-placement="bottom" title="How many of the organisation's published current activities contain specific humanitarian-related information eg which emergency(s), appeals, clusters etc.">Humanitarian</th>
+					<th class="sort total" data-sort="total" data-toggle="tooltip" data-placement="bottom" title="Aggregated assessment value average which combines the  percentage values for all five measures (1. Timeliness, 2. Forward Looking, 3. Comprehensive, 4. Coverage, 5. Humanitarian - see 'Details' tab)">Total</th>
+				</tr>
+			</thead>
+			<tbody class="list">
+				{% for k in data %}
+				<tr>
+					<td class="organisation" data-order="{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}">
+						{% if (data[k]['first_published'] != '' and data[k]['first_published'] != 0) %}
+							<a href="https://iatiregistry.org/publisher/about/{{ k }}">
+						{% endif %}
+						{{ data[k]['name_en'] if data[k]['name_en'] != '' else k }}
+						{% if (data[k]['first_published'] != '' and data[k]['first_published'] != 0) %}
+							</a>
+						{% endif %}
+					</td>
 					<td class="timeliness pc-{{ data[k]['Timeliness'] }}">{{ data[k]['Timeliness'] if data[k]['Timeliness'] != '' else '0' }}</td>
 					<td class="comprehensive pc-{{ data[k]['Forward looking'] }}">{{ data[k]['Forward looking'] if data[k]['Forward looking'] != '' else '0' }}</td>
 					<td class="forward-looking pc-{{ data[k]['Comprehensive'] }}">{{ data[k]['Comprehensive'] if data[k]['Comprehensive'] != '' else '0' }}</td>
 					<td class="coverage pc-{{ data[k]['humanitarian_coverage_total'] }}">{{ data[k]['humanitarian_coverage_total'] if data[k]['humanitarian_coverage_total'] else '0' }}</td>
 					<td class="humanitarian pc-{{ data[k]['humanitarian'] }}">{{ data[k]['humanitarian'] if data[k]['humanitarian'] != '' else '0' }}</td>
 					<td class="summary-total">{{ data[k]['summary_total']|round(2) if data[k]['summary_total'] != '' else '0' }}</td>
-					<td class="{{ 'positive-progress' if data[k]['progress'] > 0 }}">{{ data[k]['progress']|round(2) if data[k]['progress'] != '' else '0' }}</td>
-					<td class="baseline">{{ data[k]['baseline'] if data[k]['baseline'] != '' else '0' }}</td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -69,91 +110,67 @@
 	<div role="tabpanel" class="tab-pane" id="methodology-tab">
 		<h2>The monitoring framework and methodology</h2>
 
-		<p>The monitoring framework and methodology explained below was developed by <a href="http://devinit.org/">Development Initiatives</a> based on feedback received from a consultation process with Grand Bargain signatory organisations and the wider humanitarian community from March to April 2017.</p>
+		<p>The monitoring framework and methodology explained below was developed by <a href="http://devinit.org/">Development Initiatives</a> with the support of the <a href="https://www.aidtransparency.net/governance/secretariat"> IATI Secretariat </a> following an extensive consultation process, which was carried out during 2017 and involved over 150 people from 85 organisations across 26 countries. </p>
 
-		<h3>Methodology</h3>
-
-		<p>The dashboard supports Grand Bargain signatory organisations to track:</p>
-
-		<ul>
-			<li>The quality of the humanitarian data they publish to the <a href="http://iatistandard.org/">IATI Standard</a>, in terms of its structure rather than the content of the data.</li>
-			<li>The progress signatories are making in meeting the Grand Bargain transparency <a href="https://interagencystandingcommittee.org/grand-bargain-hosted-iasc">commitment</a> to publish timely, high-quality, harmonised and transparent data on humanitarian funding.</li>
-		</ul>
-
-		<p>The methodology measures the quality of humanitarian data an organisation publishes to the IATI Standard against five performance measures. Each of these performance measures has been given a percentage weighting that reflects its importance and/or relevance for the humanitarian community, based on feedback received through the consultation process.</p>
-
-		<p>Five performance measures:</p>
-
-		<ul>
-			<li><strong>Humanitarian</strong>: to assess the use of the specific humanitarian elements added to the IATI Standard at version 2.02.</li>
-			<li><strong>Timeliness</strong>: to assess both the frequency (how often the data is updated) and the time lag (how up to date the data is) of published information.</li>
-			<li><strong>Comprehensiveness</strong>: to assess how much of the IATI Standard is being used. This covers:
-				<ul>
-					<li>Core IATI fields (e.g. title, description, start date)</li>
-					<li>Financial fields (transaction and traceability information)</li>
-					<li>Value-added fields (e.g. subnational location data, information on results).</li>
-				</ul>
-			</li>
-			<li><strong>Coverage*</strong>: to assess the percentage of an organisation's total operational spend on all humanitarian programming that is published to IATI.</li>
-			<li><strong>Forward looking</strong>: to assess how much information on activity budgets is available for the next three years.</li>
-		</ul>
-
-		<p>Organisations are given a percentage value for each of the measures, which are then aggregated into a single total value for each Grand Bargain signatory organisation.</p>
-
-		<p>*Note that the percentage values for the <strong>coverage</strong> performance measure are currently not available. To calculate this, each Grand Bargain signatory organisation will be asked to provide a figure and an external reference (e.g. a link to their annual report) for their humanitarian spending for 2015 and 2016. Organisations will be contacted directly by the end of July 2017 and asked to provide this information.</p>
-
-		<p>Detailed methodologies for each performance measure can be found on the IATI website via the links below.</p>
+		<h3>What is being measured?</h3>
+		
+		<p>The methodology measures the quality of <strong>humanitarian</strong> data an organisation publishes to the IATI Standard against five performance measures. Each of these performance measures has been given a percentage weighting that reflects its importance and/or relevance for the humanitarian community, based on feedback received through the consultation process. The purpose, weighting and methodology for each performance measure is outlined in the table below. More details on the methodologies for each performance measure can be found on the IATI website by clicking on the links below.</p>
 
 		<table class="table table-bordered table-hover">
 			<tr>
 				<th>Performance measure</th>
+				<th>Purpose</th>
 				<th>Weighting</th>
 				<th>Methodology</th>
 			</tr>
 			<tr>
 				<td>1. Humanitarian</td>
+				<td>To assess the use of the specific humanitarian elements added to the IATI Standard at v2.02 </td>
 				<td>25%</td>
 				<td><a href="http://dashboard.iatistandard.org/humanitarian.html#h_narrative">Methodology</a></td>
 			</tr>
 			<tr>
 				<td>2. Timeliness</td>
+				<td>To assess both the frequency (how often the data is updated) and the time lag (how up to date the data is) of published information </td>
 				<td>25%</td>
 				<td><a href="http://dashboard.iatistandard.org/timeliness.html#h_narrative">Methodology</a></td>
 			</tr>
 			<tr>
 				<td>3. Comprehensiveness</td>
+				<td>To assess how much of the IATI Standard is being used</td>
 				<td>25%</td>
 				<td><a href="http://dashboard.iatistandard.org/comprehensiveness.html#h_narrative">Methodology</a></td>
 			</tr>
 			<tr>
 				<td>4. Coverage</td>
+				<td>To assess the percentage of an organisation's total operational spend on all humanitarian programming that is published to IATI</td>
 				<td>15%</td>
 				<td><a href="http://dashboard.iatistandard.org/coverage.html#h_narrative">Methodology</a> Additional information will be required from publishers (see above)</td>
 			</tr>
 			<tr>
 				<td>5. Forward looking</td>
+				<td>To assess how much information on activity budgets is available for the next three years </td>
 				<td>10%</td>
 				<td><a href="http://dashboard.iatistandard.org/forwardlooking.html#h_narrative">Methodology</a></td>
 			</tr>
 		</table>
+		
+		<h3>What is classified as humanitarian data?</h3>
+		
+		<p>An organisation’s data is classed as <i>humanitarian</i> if either of the following applies:</p>
 
-		<h3>Understanding the dashboard</h3>
-
-		<p>
-			<strong>Baseline:</strong> the total value for each Grand Bargain signatory organisation as of 1 June 2017.<br/>
-			<strong>Total:</strong> the total value for each Grand Bargain signatory organisation at that point in time.<br/>
-			<strong>Progress:</strong> the difference between the organisation’s <strong>total</strong> and <strong>baseline</strong> value. Any value greater than zero is coloured green.
-		</p>
-
-		<p>An organisation’s data will be classed as <strong>humanitarian</strong> if either of the following apply:</p>
 		<ul>
-			<li>The activity includes a <a href="http://iatistandard.org/202/activity-standard/iati-activities/iati-activity/sector/">DAC sector code</a> in the range 72010 to 74010.</li>
-			<li>The <a href="http://iatistandard.org/202/activity-standard/iati-activities/iati-activity/">activity humanitarian attribute</a> is set. (Note that the humanitarian attribute is only available to publishers using V2.02 or later of the IATI Standard.)</li>
+			<li>The activity includes a <a href="http://iatistandard.org/202/activity-standard/iati-activities/iati-activity/sector/">DAC sector</a> code in the range 72010 to 74010. </li>
+			<li>The activity <a href="http://iatistandard.org/202/activity-standard/iati-activities/iati-activity/">humanitarian attribute</a> is set. (Note that the humanitarian attribute is only available to publishers using V2.02 or later of the IATI Standard.)</li>
 		</ul>
 
-		<h2>Meeting the commitment</h2>
+		<h3>Where is the data taken from and how often is it updated?</h3>
+		
+		<p>The Grand Bargain Transparency Dashboard uses the data that organisations publish to the <a href="http://iatistandard.org">IATI Standard</a> on the <a href="http://iatiregistry.org">IATI Registry</a>. The dashboard is updated on <strong>a daily basis</strong> and the values under each column are calculated automatically. </p>
+		
+		<h3>Making progress towards meeting the transparency commitments</h3>
 
-		<p>An organisation’s overall assessment is based on the total value by quintile ratings in accordance with the table below. If a signatory organisation has met the Grand Bargain transparency commitment, it achieves an assessment of ‘good’ (60–79%) or above.</p>
+		<p>An organisation's overall assessment is based on its total value (see Details tab) according to the quintile ratings outlined in the table below. For example, an organisation with a total value 41.5% would receive an assessment of ‘fair”. Organisations achieving an assessment of “good” (60–79%) or above have met the Grand Bargain transparency commitment to publish timely, high-quality, harmonised and transparent data on humanitarian funding.</p>
 
 		<table class="table table-bordered table-hover">
 			<tr>
@@ -181,18 +198,41 @@
 				<td>Very poor</td>
 			</tr>
 		</table>
+		
+		<h3>The specific case of federated/confederated organisations</h3>
+		
+		<p>The operational models of some organisations with highly federated or confederated structures can present significant challenges for implementing organisation-wide IATI publishing. National members or affiliates often have independent governance structures and are subject to differing legal requirements depending on national laws. This presents difficulties when measuring their performance and presenting an aggregated value for the federation/confederation. Therefore all Grand Bargain signatory organisations, including any national members or affiliated organisations that publish their humanitarian aid data to IATI, will be individually assessed and these values made available on the Grand Bargain Transparency Dashboard. </p>
 
 	</div>
 </div>
 
+<script src="static/js/popper.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
 <script src="static/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.table').DataTable({
 		"order": [[ 0, "asc" ]],
 		"paging": false,
-		"fixedHeader": true
+		"fixedHeader": true,
+		"columnDefs": [
+			{ "orderable": false, "targets": [
+				"first-published",
+				"baseline",
+				"timeliness",
+				"forward-looking",
+				"comprehensive",
+				"coverage",
+				"humanitarian",
+				"total"
+			]}
+  	]
 	});
 });
+</script>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip({container: 'body'})
+})
 </script>
 {% endblock %}
