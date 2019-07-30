@@ -9,8 +9,8 @@ remote_data_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..
 
 
 # URLs at which data can be found
-csv_url_summary_stats = 'http://dashboard.iatistandard.org/summary_stats.csv'
-csv_url_humanitarian_stats = 'http://dev.dashboard.iatistandard.org/humanitarian.csv'
+csv_url_summary_stats = 'http://publishingstats.iatistandard.org/summary_stats.csv'
+csv_url_humanitarian_stats = 'http://publishingstats.iatistandard.org/humanitarian.csv'
 
 
 with open(os.path.join(remote_data_path, 'summary_stats.csv'), 'wb') as f:
