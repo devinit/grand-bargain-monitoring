@@ -27,3 +27,10 @@ h1 {
 	font-family: geomanist, Arial, sans-serif;
 	font-weight: bold;
 }
+
+.notify-banner {
+    background-color: #fc5858;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
